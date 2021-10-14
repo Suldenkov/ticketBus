@@ -22,7 +22,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 		fields = ('level',)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class PassengerUserSerializer(serializers.ModelSerializer):
 	passenger = PassengerSerializer()
 
 	class Meta:

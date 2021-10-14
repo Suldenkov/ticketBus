@@ -1,7 +1,6 @@
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-from accounts.serializers import CookieTokenRefreshSerializer, UserSerializer
+from accounts.serializers import CookieTokenRefreshSerializer, PassengerUserSerializer
 from rest_framework import generics
-from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -24,17 +23,12 @@ class CookieTokenRefreshView(TokenRefreshView):
 
 
 class PassengerRegisterView(generics.CreateAPIView):
-	serializer_class = UserSerializer
+	serializer_class = PassengerUserSerializer
 
 
 class Extractor(generics.RetrieveUpdateAPIView):
 	permission_classes = (IsAuthenticated,)
-	serializer_class = UserSerializer
+	serializer_class = PassengerUserSerializer
 
-	# def get(self, request):
-	# 	content = {
-	# 		'username': request.user.username
-	# 	}
-	# 	return Response(content)
 	def get_object(self):
 		return self.request.user

@@ -38,8 +38,8 @@ INSTALLED_APPS = [
 
 	'rest_framework',
 	'rest_framework_simplejwt',
-	'djoser',
 	'accounts',
+	'flight',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +81,20 @@ WSGI_APPLICATION = 'ticketBus.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# DATABASES = {
+# 	'default': {
+# 		'ENGINE': 'djongo',
+# 		'NAME': 'ticketBusDb',
+# 	}
+# }
 DATABASES = {
 	'default': {
-		'ENGINE': 'djongo',
-		'NAME': 'ticketBusDb',
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'ticketDb',
+		'USER': 'admin',
+		'PASSWORD': '123',
+		'HOST': 'localhost',
+		'PORT': '5432',
 	}
 }
 
