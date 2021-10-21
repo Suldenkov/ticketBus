@@ -26,6 +26,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Celery seting
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,8 +44,12 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 
+	'django_celery_beat',
+	'django_celery_results',
+	'drf_yasg',
 	'rest_framework',
 	'rest_framework_simplejwt',
+
 	'accounts',
 	'flight',
 ]
@@ -118,6 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -144,3 +157,5 @@ SIMPLE_JWT = {
 	'AUTH_COOKIE_PATH': '/',
 	'AUTH_COOKIE_SAMESITE': 'Strict'
 }
+
+

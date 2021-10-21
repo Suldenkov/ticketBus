@@ -1,18 +1,43 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import *
+from .models import ParkCar, Flight, Bus
 
 
 class ParkCarSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ParkCar
-		fields = ('city',)
+		fields = '__all__'
 
 
-class FlightSerializer(serializers.ModelSerializer):
+class FlightListSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
 
 	class Meta:
 		model = Flight
-		fields = ('scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark')
+		fields = ('id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark')
+
+
+class BusSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Bus
+		fields = '__all__'
+
+
+class FlightDetailSerializer(serializers.ModelSerializer):
+	departureAutopark = ParkCarSerializer()
+	arrivalAutopark = ParkCarSerializer()
+	bus = BusSerializer()
+
+	class Meta:
+		model = Flight
+		fields = (
+		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
+
+
+class FlightCreateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Flight
+		fields = (
+			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
+
