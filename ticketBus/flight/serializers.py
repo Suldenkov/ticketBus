@@ -13,6 +13,11 @@ class FlightListSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
 
+	##test##
+	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	scheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	#######
+
 	class Meta:
 		model = Flight
 		fields = ('id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark')
@@ -27,6 +32,12 @@ class BusSerializer(serializers.ModelSerializer):
 class FlightDetailSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
+
+
+	##test##
+	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+	sheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+	#######
 	bus = BusSerializer()
 
 	class Meta:
@@ -38,6 +49,5 @@ class FlightDetailSerializer(serializers.ModelSerializer):
 class FlightCreateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
-		fields = (
-			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
+		fields = '__all__'
 

@@ -24,7 +24,7 @@ class Flight(models.Model):
 	status = models.IntegerField()
 	departureAutopark = models.ForeignKey(ParkCar, on_delete=models.CASCADE, related_name='departureAutopark')
 	arrivalAutopark = models.ForeignKey(ParkCar, on_delete=models.CASCADE, related_name='arrivalAutopark')
-	bus = models.OneToOneField(Bus, on_delete=models.CASCADE)
+	bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
 
 
 class Ticket(models.Model):

@@ -24,7 +24,13 @@ SECRET_KEY = 'django-insecure-754a)%5h-^rzy+m5urcpsf86b+yyxa786k8$m)#*njlv@3s1n=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ALLOWED_ORIGINS = [
+	'http://localhost:3000',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Celery seting
 CELERY_TIMEZONE = "Europe/Moscow"
@@ -49,7 +55,7 @@ INSTALLED_APPS = [
 	'drf_yasg',
 	'rest_framework',
 	'rest_framework_simplejwt',
-
+	'corsheaders',
 	'accounts',
 	'flight',
 ]
@@ -57,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+	"corsheaders.middleware.CorsMiddleware",
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',

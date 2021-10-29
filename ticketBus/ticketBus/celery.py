@@ -12,7 +12,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
 	'show': {
-		'task': 'flight.tasks.hello',
+		'task': 'flight.tasks.status_manager',
 		'schedule': 300.0
 	}
 }

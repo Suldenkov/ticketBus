@@ -1,12 +1,12 @@
 import datetime
-
 from .serializers import FlightListSerializer, FlightDetailSerializer, FlightCreateSerializer
-from .models import Flight
+from .models import Flight, ParkCar, Bus
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.db.models import Q
 
 
 class FlightListView(generics.ListAPIView):
@@ -29,7 +29,7 @@ class FlightListView(generics.ListAPIView):
 
 
 class FlightViewSet(viewsets.ModelViewSet):
-	permission_classes_by_action = {'create': [IsAuthenticated],
+	permission_classes_by_action = {'create': [AllowAny],
 									'list': [AllowAny],
 									'retrive': [AllowAny]}
 	serializer_class = FlightCreateSerializer
@@ -59,7 +59,22 @@ class FlightViewSet(viewsets.ModelViewSet):
 		serializer = FlightDetailSerializer(flight)
 		return Response(serializer.data)
 
-	# def create(self, request):
-	# 	queryset = Flight.objects.all()
-	# 	serializer = FlightCreateSerializer(queryset)
-	# 	return Response(serializer.data)
+	def create(self, request):
+		departureAutopark = ParkCar.objects.get(pk=request.data['departureAutopark'])
+		arrivalAutopark = ParkCar.objects.get(pk=request.data['arrivalAutopark'])
+		bus = Bus.objects.get(pk=request.data['bus'])
+		queryset = Flight.objects.filter(
+			Q(bus=bus) & Q(scheduledDeparture__lte=request.data['scheduledDeparture']) & Q(
+				scheduledArrival__gte=request.data['scheduledDeparture']))
+		if len(queryset) == 0:
+			queryset = Flight.objects.create(
+				scheduledDeparture=request.data['scheduledDeparture'],
+				scheduledArrival=request.data['scheduledArrival'],
+				status=request.data['status'],
+				departureAutopark=departureAutopark,
+				arrivalAutopark=arrivalAutopark,
+				bus=bus,
+			)
+			serializer = FlightCreateSerializer(queryset)
+			return Response(serializer.data)
+		return Response({'status': 400, 'text': 'incorrect parameter'})

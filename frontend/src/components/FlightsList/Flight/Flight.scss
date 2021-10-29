@@ -1,0 +1,32 @@
+.flight{
+	display: flex;
+	margin: 10px auto;
+	padding: 1.9em 0 1.9em 0;
+	border-radius: 15px;
+	border: 1px solid rgb(177, 177, 177);
+
+	&__from, &__to{
+		width: 15%;
+	}
+
+	.time, &__price{
+		display: block;
+		font-weight: bold;
+		font-size: 1.5rem;
+	}
+	
+	&__gap, &__price{
+		font-size: 1.2rem;
+	}
+
+	&__gap{
+		width: 10%;
+		font-size: 1rem;
+	}
+
+	.content{
+		display: flex;
+		justify-content: space-between;
+		width: 70%;
+	}	
+}
