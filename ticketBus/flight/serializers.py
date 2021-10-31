@@ -1,6 +1,8 @@
+import datetime
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import ParkCar, Flight, Bus
+import time
 
 
 class ParkCarSerializer(serializers.ModelSerializer):
@@ -16,11 +18,20 @@ class FlightListSerializer(serializers.ModelSerializer):
 	##test##
 	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	scheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	duration = serializers.SerializerMethodField()
+
 	#######
 
 	class Meta:
 		model = Flight
-		fields = ('id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark')
+		fields = (
+		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'duration')
+
+	@staticmethod
+	def get_duration(obj):
+		hours, minutes = divmod(obj.duration.total_seconds(), 3600)
+		minutes = int(divmod(minutes, 60)[0])
+		return str(int(hours)) + 'ч ' + str(minutes) + 'м'
 
 
 class BusSerializer(serializers.ModelSerializer):
@@ -33,7 +44,6 @@ class FlightDetailSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
 
-
 	##test##
 	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 	sheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
@@ -43,11 +53,10 @@ class FlightDetailSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
 		fields = (
-		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
+			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
 
 
 class FlightCreateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
 		fields = '__all__'
-

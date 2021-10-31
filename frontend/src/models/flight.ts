@@ -1,7 +1,8 @@
 export enum flightActionTypes {
 	FETCH_FLIGHTS = 'FETCH_FLIGHTS',
 	FETCH_FLIGHTS_SUCCES = 'FETCH_FLIGHTS_SUCCES',
-	FETCH_FLIGHTS_ERROR = 'FETCH_FLIGHTS_ERROR'
+	FETCH_FLIGHTS_ERROR = 'FETCH_FLIGHTS_ERROR',
+	SORT_FLIGHTS = 'SORT_FLIGHTS',
 }
 
 export interface flightState {
@@ -24,4 +25,13 @@ interface FetchFlightsErrorAction {
 	payload: string;
 }
 
-export type FlightAction = FetchFlightsAction | FetchFlightsSuccesAction | FetchFlightsErrorAction;
+interface SortFlightsAction {
+	type: flightActionTypes.SORT_FLIGHTS;
+	payload: {
+		active:string;
+		kind:string;
+		flights: any[];
+	};
+}
+
+export type FlightAction = FetchFlightsAction | FetchFlightsSuccesAction | FetchFlightsErrorAction | SortFlightsAction;
