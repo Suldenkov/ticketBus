@@ -19,13 +19,14 @@ class FlightListSerializer(serializers.ModelSerializer):
 	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	scheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	duration = serializers.SerializerMethodField()
+	amount = serializers.DecimalField(max_digits=10, decimal_places=0)
 
 	#######
 
 	class Meta:
 		model = Flight
 		fields = (
-		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'duration')
+		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'duration', 'amount')
 
 	@staticmethod
 	def get_duration(obj):

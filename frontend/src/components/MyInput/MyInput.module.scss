@@ -1,0 +1,12 @@
+.search{
+	border-radius: 6px;
+	padding: 0.6em 3.2em 0.7em 0.9em;
+	border: 1px solid #c3cfdf;
+	background: #fff;
+	outline: none;
+
+	&:focus{
+		border:1px solid rgb(133, 133, 133);
+	}
+}
+

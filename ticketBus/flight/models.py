@@ -28,13 +28,9 @@ class Flight(models.Model):
 	arrivalAutopark = models.ForeignKey(ParkCar, on_delete=models.CASCADE, related_name='arrivalAutopark')
 	bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
 	duration = models.DurationField(default=timedelta())
+	amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class Ticket(models.Model):
 	passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
-
-
-class TicketFlight(models.Model):
 	flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-	ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE)
-	amount = models.DecimalField(max_digits=10, decimal_places=2)

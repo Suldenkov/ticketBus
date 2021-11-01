@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import FlightsForm from './components/FlightsForm/FlightsForm';
+import HomePage from './screens/HomePage/HomePage';
 
 
 const App : React.FC = () => {
   
-  
   return (
     <div className="App">
-      <FlightsForm/>
+      <HomePage/>
     </div>
   );
 }

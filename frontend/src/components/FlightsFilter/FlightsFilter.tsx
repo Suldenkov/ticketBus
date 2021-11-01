@@ -38,10 +38,10 @@ const FlightsFilter: React.FC<IFlightsFilterProps> = ({onChange, selectedSort}) 
 				<span className={style.arrow}>{selectedSort.active === 'duration' ? selectedSort.kind === 'bottom' ? '\u{1F823}': '\u{1F821}' : ''}</span>
 			</div>
 			<div
-				data-sort="price" 
+				data-sort="amount" 
 				onClick={onClickActive}
 				className={style.price__title}>Цена от
-				<span className={style.arrow}>{selectedSort.active === 'price' ? selectedSort.kind === 'bottom' ? '\u{1F823}': '\u{1F821}' : ''}</span>
+				<span className={style.arrow}>{selectedSort.active === 'amount' ? selectedSort.kind === 'bottom' ? '\u{1F823}': '\u{1F821}' : ''}</span>
 			</div>
 		</div>
 	)

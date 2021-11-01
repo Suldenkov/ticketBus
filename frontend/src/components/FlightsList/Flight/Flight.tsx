@@ -8,10 +8,11 @@ interface FlightProps{
 	arrivalcity: string;
 	departurecity: string;
 	duration:string;
+	amount:string
 	status: number;
 }
 
-const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration }) => {
+const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount }) => {
 
 	// const st:string = status === 200 ? 'Ожидает выезда' : status === 300 ? 'В пути' : 'Рейс завершон';
 
@@ -30,7 +31,7 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 					<span>{duration}</span>
 				</div>
 				<div className="flight__price">
-					<span>1400₽</span>
+					<span>{amount}₽</span>
 				</div>
 			</div>
 			<MyButton name="Купить" />

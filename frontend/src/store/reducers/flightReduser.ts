@@ -15,7 +15,11 @@ export const flightReduser = (state = initialState, action: FlightAction): fligh
 		case flightActionTypes.FETCH_FLIGHTS_ERROR:
 			return {loading: false, error: action.payload, flights: []}
 		case flightActionTypes.SORT_FLIGHTS:
-			let flights = [...action.payload.flights].sort((a, b) => a[action.payload.active].localeCompare(b[action.payload.active]))
+			let flights 
+			if (action.payload.active !== 'amount')
+				flights = [...action.payload.flights].sort((a, b) => a[action.payload.active].localeCompare(b[action.payload.active]))
+			else
+				flights = [...action.payload.flights].sort((a, b) => parseInt(a[action.payload.active]) - parseInt(b[action.payload.active]))
 			return {loading: false, error: null, flights: action.payload.kind === 'bottom' ? flights.reverse() : flights}
 		default:
 			return state

@@ -29,6 +29,7 @@ const FlightsList: React.FC = () => {
 									arrivalcity={elem.arrivalAutopark.parkName}
 									departurecity={elem.departureAutopark.parkName}
 									duration={elem.duration}
+									amount={elem.amount}
 									status={elem.status}/>)
 			}
 		</div>
