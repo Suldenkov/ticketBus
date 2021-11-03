@@ -1,31 +1,11 @@
 import datetime
-from .serializers import FlightListSerializer, FlightDetailSerializer, FlightCreateSerializer
+from .serializers import FlightListSerializer, FlightDetailSerializer, FlightCreateSerializer, ParkCarSerializer
 from .models import Flight, ParkCar, Bus
-from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db.models import Q
-
-
-class FlightListView(generics.ListAPIView):
-	serializer_class = FlightListSerializer
-
-	def get_queryset(self):
-
-		queryset = Flight.objects.all()
-		departureAutopark = self.request.query_params.get('departureAutopark__city')
-		arrivalAutopark = self.request.query_params.get('arrivalAutopark__city')
-		day = self.request.query_params.get('scheduledDeparture')
-
-		if departureAutopark is not None:
-			queryset = queryset.filter(departureAutopark__city=departureAutopark)
-		if arrivalAutopark is not None:
-			queryset = queryset.filter(arrivalAutopark__city=arrivalAutopark)
-		if day is not None:
-			queryset = queryset.filter(scheduledDeparture=day)
-		return queryset
 
 
 class FlightViewSet(viewsets.ModelViewSet):
@@ -78,3 +58,27 @@ class FlightViewSet(viewsets.ModelViewSet):
 			serializer = FlightCreateSerializer(queryset)
 			return Response(serializer.data)
 		return Response({'status': 400, 'text': 'incorrect parameter'})
+
+
+class ParkCarViewSet(viewsets.ModelViewSet):
+	# serializer_class = ParkCarSerializer
+	# permission_classes_by_action = {'list': [AllowAny]}
+									# 'retrive': [AllowAny]}
+
+	def list(self, request):
+		queryset = self.get_queryset()
+		serializer = ParkCarSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	def get_queryset(self):
+		queryset = ParkCar.objects.all()
+		city = self.request.query_params.get('city')
+		if city is not None:
+			queryset = queryset.filter(city__istartswith=city)
+		return queryset[:5]
+
+	# def retrieve(self, request, pk=None):
+	# 	queryset = ParkCar.objects.all()
+	# 	park = get_object_or_404(queryset, pk=pk)
+	# 	serializer = ParkCarSerializer(park)
+	# 	return Response(serializer.data)
