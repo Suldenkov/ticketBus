@@ -21,10 +21,9 @@ class FlightViewSet(viewsets.ModelViewSet):
 	def get_queryset(self):
 
 		queryset = Flight.objects.all()
-		departureAutopark = self.request.query_params.get('departureAutopark__city')
-		arrivalAutopark = self.request.query_params.get('arrivalAutopark__city')
-		day = self.request.query_params.get('scheduledDeparture')
-
+		departureAutopark = self.request.query_params.get('departure')
+		arrivalAutopark = self.request.query_params.get('arrival')
+		day = self.request.query_params.get('date')
 		if departureAutopark is not None:
 			queryset = queryset.filter(departureAutopark__city=departureAutopark)
 		if arrivalAutopark is not None:

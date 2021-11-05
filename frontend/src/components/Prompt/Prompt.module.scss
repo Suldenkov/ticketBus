@@ -1,0 +1,26 @@
+.list{
+	list-style-type: none;
+	position: absolute;
+	margin-top: -0.1em;
+	border-radius: 6px;
+	width: 100%;
+	background-color: white;
+	z-index: 900;
+}
+
+.li{
+	padding: 1em;
+	overflow: hidden;
+	z-index: 901;
+	&:hover{
+		background: rgb(123, 186, 238);
+
+		&:first-child{
+			border-radius: 6px 6px 0 0;
+		}
+		
+		&:last-child{
+			border-radius: 0 0 6px 6px;
+		}
+	}
+}

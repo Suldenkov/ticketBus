@@ -16,6 +16,10 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 
 	// const st:string = status === 200 ? 'Ожидает выезда' : status === 300 ? 'В пути' : 'Рейс завершон';
 
+	const send = () => {
+		console.log('send')
+	}
+
 	return (
 		<div className="flight">
 			<div className="content">
@@ -34,7 +38,7 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 					<span>{amount}₽</span>
 				</div>
 			</div>
-			<MyButton name="Купить" />
+			<MyButton onClick={send} name="Купить" />
 			{/* <span>{st}</span> */}
 		</div>
 	)

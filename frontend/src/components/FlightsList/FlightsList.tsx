@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import {useDispatch} from 'react-redux';
+import { useQuery } from '../../hooks/useQuery';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { fetchFlights } from '../../store/action-creator/flight';
 import Flight from './Flight/Flight';
 import  style from './FlightsList.module.scss';
 
 const FlightsList: React.FC = () => {
+	let query = useQuery();
   const dispatch = useDispatch()
 	const {loading, error, flights} = useTypeSelector(state => state.flight)
-
+	
+	
   useEffect(() => {
-    dispatch(fetchFlights())
+    dispatch(fetchFlights({arrival: `${query.get('arrival')}`, departure: `${query.get('departure')}`, date: `${query.get('date')}`}))
   }, [dispatch])
 
   if (loading)

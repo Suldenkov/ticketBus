@@ -1,4 +1,34 @@
 .flightsSearch{
 	display: flex;
+}
 
+.calendar{
+	// width: 25em;
+	height: 3em;
+	width: 15em;
+	margin-left: 1em;
+	&_input{
+		width: 100%;
+		height: 3em;
+		font-size: 0.9rem;
+		outline: none;
+		border: 1px solid #c3cfdf;
+		border-radius: 6px;
+		padding: 0.6em 3.2em 0.7em 0.9em;
+		&:focus{
+			border:1px solid rgb(133, 133, 133);
+		}
+	}
+	&_window{
+		width: 25em;
+	}
+	
+}
+
+.month{
+	width: 100%;
+}
+
+.day{
+	// color: yellow;
 }
