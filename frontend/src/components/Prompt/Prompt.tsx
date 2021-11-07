@@ -15,7 +15,7 @@ const Prompt: React.FC<PromptProps> = ({setValue, name}) => {
 	return (
 			<ul className={style.list}>
 				{
-					parks.map((elem) => <li data-prompt='1' className={style.li} key={elem.id} value={elem.city}>{elem.city}</li>)
+					parks.map((elem) => <li className={style.li} key={elem.id}><div data-prompt='1'>{elem.city}</div></li>)
 				}
 			</ul>
 	)

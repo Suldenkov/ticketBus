@@ -24,6 +24,7 @@ const FlightsSearch: React.FC = (props) => {
 	}
 
 	const onClickItem = (value: string, name:string) => {
+		dispatch(fetchParkCar(value))
 		setSearchParam({...searchParam, [name]: value})
 	}
 

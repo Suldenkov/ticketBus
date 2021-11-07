@@ -17,24 +17,27 @@ const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...p
 	const [focus, setFocus] = useState<boolean>(false)
 
 	const focusControl = () => {
-		if (focus === false && fetch)
+		if (focus === false && fetch){
 			dispatch(fetch(props.value))
-		setFocus((prevState) => !prevState);
+			setFocus((prevState) => !prevState)
+		}
+		else
+			setTimeout(() => setFocus((prevState) => !prevState), 1000)
 	}
 
 	const onClickItem = (e: any) => {
-		if (e.target.dataset.prompt)
-			setValue(e.target.value, props.name)
+		if (e.target.dataset.prompt){
+			setValue(e.target.textContent, props.name)
+		}
 	}
 
 
 	return (
 		<div className="search_input_container" onClick={onClickItem}>
 			<MyInput {...props} focusControl={focusControl} className="search_input"/>
-			{focus ? 
+			{focus ?
 			children
-			: 
-			<></>}
+		: <></>}
 		</div>
 	)
 }
