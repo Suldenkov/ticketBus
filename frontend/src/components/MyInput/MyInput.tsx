@@ -1,5 +1,5 @@
 import React from "react";
-import style from './MyInput.module.scss';
+import './MyInput.scss';
 
 interface MyInputProps{
 	placeholder: string;
@@ -7,21 +7,23 @@ interface MyInputProps{
 	onChange?: any;
 	name: string;
 	focusControl?:any;
+	className?:string | undefined
+	type?:string | undefined
 }
 
-const MyInput:React.FC<MyInputProps> = ({placeholder, value, onChange, name, focusControl}) =>{
+const MyInput:React.FC<MyInputProps> = ({placeholder, value, onChange, name, focusControl, className, type='text'}) =>{
 
 	return (
-		<div className={style.input}>
+		<div className={className ? `my_input_container ${className}` : 'my_input_container'}>
 			<input
 			value={value}
 			name={name}
 			onFocus={focusControl}
-			onBlur={focusControl}
+			// onBlur={focusControl}
 			onChange={onChange}
 			placeholder={placeholder}
-			className={style.search}
-			type="text"
+			className="my_input"
+			type={type}
 			autoComplete="off"/>
 		</div>
 	)

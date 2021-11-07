@@ -1,0 +1,10 @@
+.flights_search{
+	display: flex;
+
+	&_component{
+		font-size: 0.9rem;
+		margin-left: 1em;
+		height: 3em;
+		width: 15em;
+	}
+}

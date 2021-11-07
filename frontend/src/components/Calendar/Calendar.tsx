@@ -1,23 +1,31 @@
 import React from "react";
-import style from "./Calendar.module.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./Calendar.scss";
 
-const Calendar:React.FC =  () => {
+interface CalendarProps{
+	startDate: Date | null | undefined;
+	setStartDate: any;
+}
 
-	const weekdays = ['Пн', 'Вт', 'Ср', 'ЧТ', 'Пт', 'Сб', 'Вс']
+const Calendar:React.FC<CalendarProps> = ({startDate, setStartDate}) => {
+
+	// const weekdays = ['Пн', 'Вт', 'Ср', 'ЧТ', 'Пт', 'Сб', 'Вс']
 
 	return (
-		<div className={style.calendar}>
-			<div className={style.month}>
-				<div className={style.weekdays}>
-					{
-						weekdays.map((weekday, id) => <div key={id} className={style.weekday}>{weekday}</div>)
-					}
-				</div>
-				<div className="body">
-
-				</div>
+		<div className="calendar">
+				<DatePicker 
+					selected={startDate} 
+					onChange={(date) => setStartDate(date)}
+					isClearable
+					minDate={new Date()}
+					dateFormat="dd.MM.yyyy"
+					placeholderText="Дата"
+					className="calendar__input"
+					calendarClassName="calendar__window"
+					dayClassName={() => "calendar__day"}
+					/>
 			</div>
-		</div>
 	)
 }
 

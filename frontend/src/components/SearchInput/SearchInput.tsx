@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MyInput from "../MyInput/MyInput";
 import {useDispatch} from 'react-redux';
-import style from './SearchInput.module.scss';
+import './SearchInput.scss';
 
 interface SearchInputProps{
 	fetch?: any;
@@ -9,9 +9,10 @@ interface SearchInputProps{
 	placeholder: string;
 	name: string;
 	onChange:any;
+	setValue: any;
 }
 
-const SearchInput:React.FC<SearchInputProps> = ({fetch, children, ...props}) => {
+const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...props}) => {
 	const dispatch = useDispatch()
 	const [focus, setFocus] = useState<boolean>(false)
 
@@ -21,10 +22,19 @@ const SearchInput:React.FC<SearchInputProps> = ({fetch, children, ...props}) => 
 		setFocus((prevState) => !prevState);
 	}
 
+	const onClickItem = (e: any) => {
+		if (e.target.dataset.prompt)
+			setValue(e.target.value, props.name)
+	}
+
+
 	return (
-		<div className={style.searchinput}>
-				<MyInput {...props} focusControl={focusControl}/>
-				{focus ? children : <></>}
+		<div className="search_input_container" onClick={onClickItem}>
+			<MyInput {...props} focusControl={focusControl} className="search_input"/>
+			{focus ? 
+			children
+			: 
+			<></>}
 		</div>
 	)
 }
