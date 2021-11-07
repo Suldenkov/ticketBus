@@ -60,9 +60,7 @@ class FlightViewSet(viewsets.ModelViewSet):
 
 
 class ParkCarViewSet(viewsets.ModelViewSet):
-	# serializer_class = ParkCarSerializer
-	# permission_classes_by_action = {'list': [AllowAny]}
-									# 'retrive': [AllowAny]}
+	permission_classes_by_action = {'list': [AllowAny],}
 
 	def list(self, request):
 		queryset = self.get_queryset()
@@ -75,9 +73,3 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		if city is not None:
 			queryset = queryset.filter(city__istartswith=city)
 		return queryset[:5]
-
-	# def retrieve(self, request, pk=None):
-	# 	queryset = ParkCar.objects.all()
-	# 	park = get_object_or_404(queryset, pk=pk)
-	# 	serializer = ParkCarSerializer(park)
-	# 	return Response(serializer.data)

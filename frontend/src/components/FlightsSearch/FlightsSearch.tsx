@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import MyButton from "../Button/Button";
 
@@ -32,6 +32,12 @@ const FlightsSearch: React.FC = (props) => {
 		e.preventDefault()
 		history.push(`/flights?arrival=${searchParam.arrival}&departure=${searchParam.departure}&date=${formatDate(startDate)}`);
 	}
+
+	// useEffect(() => {
+	// 	window.addEventListener('click', (e:any) => {
+	// 		console.log(e.target)
+	// 	});
+	// }, [])
 
 	return (
 		<form className="flights_search">

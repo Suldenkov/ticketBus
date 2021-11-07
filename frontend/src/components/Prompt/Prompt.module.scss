@@ -9,7 +9,6 @@
 }
 
 .li{
-	padding: 1em;
 	overflow: hidden;
 	z-index: 901;
 	&:hover{
@@ -22,5 +21,10 @@
 		&:last-child{
 			border-radius: 0 0 6px 6px;
 		}
+	}
+	div{
+		padding: 1em;
+		height: 100%;
+		width: 100%;
 	}
 }

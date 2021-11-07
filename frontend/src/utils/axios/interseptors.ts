@@ -5,7 +5,7 @@ const setToken = (req: any) => {
 }
 
 const setTokenOnLogin = (res: any) => {
-	const isLoginUrl = res.config.url.includes('auth/token/')
+	const isLoginUrl = res.config.url.includes('login/')
 
 	if (isLoginUrl)
 		localStorage.setItem(lsTokenKey,  res.data.access)

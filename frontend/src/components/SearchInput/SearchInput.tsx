@@ -22,7 +22,7 @@ const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...p
 			setFocus((prevState) => !prevState)
 		}
 		else
-			setTimeout(() => setFocus((prevState) => !prevState), 1000)
+			setTimeout(() => setFocus((prevState) => !prevState), 100)
 	}
 
 	const onClickItem = (e: any) => {

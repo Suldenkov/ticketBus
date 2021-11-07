@@ -5,16 +5,23 @@
 
 	.time__title{
 		width: 12%;
+		cursor: pointer;
+		user-select: none;
 	}
 
 	.grap__title{
 		width: 10%;
+		cursor: pointer;
+		user-select: none;
 	}
 
 	.price__title{
 		width: 10%;
+		cursor: pointer;
+		user-select: none;
 	}
 	.arrow{
-		
+		// cursor: pointer;
+		// user-select: none;
 	}
 }

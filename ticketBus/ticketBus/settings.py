@@ -54,7 +54,8 @@ INSTALLED_APPS = [
 	'django_celery_results',
 	'drf_yasg',
 	'rest_framework',
-	'rest_framework_simplejwt',
+	# 'rest_framework_simplejwt',
+	'oauth2_provider',
 	'corsheaders',
 	'accounts',
 	'flight',
@@ -150,19 +151,26 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# REST_FRAMEWORK = {
+# 	'DEFAULT_AUTHENTICATION_CLASSES': [
+# 		'rest_framework_simplejwt.authentication.JWTAuthentication',
+# 	],
+# }
+
+# SIMPLE_JWT = {
+# 	'AUTH_COOKIE': 'access_token',
+# 	'AUTH_COOKIE_DOMAIN': None,
+# 	'AUTH_COOKIE_SECURE': False,
+# 	'AUTH_COOKIE_HTTP_ONLY': True,
+# 	'AUTH_COOKIE_PATH': '/',
+# 	'AUTH_COOKIE_SAMESITE': 'Strict'
+# }
 REST_FRAMEWORK = {
-	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework_simplejwt.authentication.JWTAuthentication',
-	],
+	# 'DEFAULT_PERMISSION_CLASSES': (
+	# 	'rest_framework.permissions.IsAuthenticated',
+	# ),
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+	)
 }
-
-SIMPLE_JWT = {
-	'AUTH_COOKIE': 'access_token',
-	'AUTH_COOKIE_DOMAIN': None,
-	'AUTH_COOKIE_SECURE': False,
-	'AUTH_COOKIE_HTTP_ONLY': True,
-	'AUTH_COOKIE_PATH': '/',
-	'AUTH_COOKIE_SAMESITE': 'Strict'
-}
-
 

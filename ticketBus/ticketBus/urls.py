@@ -34,6 +34,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
     path('api/v1/accounts/', include('accounts.urls')),
     path('api/v1/flight/', include('flight.urls')),
 

@@ -1,7 +1,12 @@
+from json import loads
+import json
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from accounts.serializers import CookieTokenRefreshSerializer, PassengerUserSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+import requests
 
 
 class CookieTokenObtainPairView(TokenObtainPairView):
@@ -32,3 +37,19 @@ class Extractor(generics.RetrieveUpdateAPIView):
 
 	def get_object(self):
 		return self.request.user
+
+
+class Login(APIView):
+	permission_classes = (AllowAny,)
+
+	def post(self, request, *args, **kwargs):
+		password = request.POST['password']
+		username = request.POST['username']
+
+		data = {"username": username, "password": password,
+				"client_id": "SPO5Xek2NTde4S4XMCxCuxexvG1IjRdRJReT8ZPk",
+				"client_secret": "d0kRPsJXESx9f09rB76XiK31rfToH95mPGR6s6ivGgCxMKOWTXOWqewa57JGDBAW2ydXijV1QKoAAbOHatb6ip3YxqfBcirqSya81j6qSuKqju9SfoX5QQLsfXCyIM2U",
+				"grant_type": "password"}
+
+		r = requests.post("http://localhost:8081/o/token/", data=data)
+		return Response(r.json())
