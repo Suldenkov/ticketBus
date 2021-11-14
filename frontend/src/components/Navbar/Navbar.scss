@@ -1,0 +1,37 @@
+.navbar{
+	background-color: rgb(231, 229, 229);
+	box-shadow: rgba(0, 0, 0 , 0.20) 0px 2px 4px;
+	padding-bottom: 1em;
+
+	&_link{
+		width: 56%;
+		padding-top: 1em;
+		margin: 0 auto;
+		display: flex;
+		justify-content: start;
+
+		ul{
+			list-style: none;
+			li{
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.nav_link{
+	text-decoration: none;
+	font-size: 1rem;
+	color: rgb(99, 89, 89);
+	transition: all 0.5s ease;
+	padding-bottom: 0.2em;
+	margin-left: 1.3em;
+
+	&:hover{
+		color: rgb(173, 169, 169);
+	}
+
+	&_selected{
+		border-bottom: 2px solid rgb(223, 14, 14);
+	}
+}

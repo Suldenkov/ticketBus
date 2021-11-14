@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import { useQuery } from '../../hooks/useQuery';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { fetchFlights } from '../../store/action-creator/flight';
-import Flight from './Flight/Flight';
+import Flight from '../Flight/Flight';
 import  style from './FlightsList.module.scss';
 
 const FlightsList: React.FC = () => {

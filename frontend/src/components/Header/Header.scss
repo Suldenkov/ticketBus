@@ -1,0 +1,59 @@
+.header{
+	z-index: 5;
+	padding: 2.5em 5em 0 5em;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	&_info{
+		display: flex;
+		align-items: center;
+		color:white;
+		font-size: 1.1rem;
+		line-height: 1.1rem;
+		cursor: pointer;
+		transition: all 0.5s ease;
+	
+		svg{
+			transition: all 0.5s ease;
+			fill: rgb(255, 255, 255);
+			margin-right: 0.5em;
+		}
+	
+		&:hover{
+			color: rgb(173, 169, 169);
+			transition: all 0.5s ease;
+			svg{
+				transition: all 0.5s ease;
+				fill: rgb(173, 169, 169);
+			}
+		}
+	}
+}
+
+.logo{
+	width: 9em;
+	cursor: pointer;
+}
+
+.link{
+	text-decoration: none;
+}
+
+.dark{
+	color: rgb(99, 89, 89);
+
+	svg{
+		padding-top: 0.1em;
+		fill: rgb(255, 1, 1);
+		margin-right: 0.1em;
+	}
+
+	&:hover{
+		color: rgb(173, 169, 169);
+		svg{
+			fill: rgb(201, 69, 69);
+		}
+	}
+}
+

@@ -1,16 +1,21 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, useRouteMatch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import Profile from "../Profile/Profile";
-import Header from "./../Home/Header/Header";
 import History from "../History/History";
 import "./Account.scss";
+import Navbar  from "./../../components/Navbar/Navbar";
 
 const Account: React.FC = () => {
-	let { path, url } = useRouteMatch();
+	let { path } = useRouteMatch();
+
+	let route = [
+		{id:1, route:`${path}/profile`, name:'Профиль'},
+		{id:2, route:`${path}/history`, name:'История покупок'},
+	]
 
 	return(
 		<div className="account">
-			<BrowserRouter>
+				<Navbar routs={route}/>
 				<Switch>
 					<Route exact path={`${path}/profile`}>
 						<Profile/>
@@ -18,8 +23,8 @@ const Account: React.FC = () => {
 					<Route exact path={`${path}/history`}>
 						<History/>
 					</Route>
+					<Redirect to={`${path}/profile`}/>
 				</Switch>
-			</BrowserRouter>
 		</div>
 	)
 }

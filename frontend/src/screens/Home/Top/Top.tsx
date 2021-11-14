@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../Header/Header";
+import Header from "./../../../components/Header/Header";
 import SearchForm from '../SearchForm/SearchForm';
 import img from './../../../imgs/topscreen.jpg';
 import style from './Top.module.scss';

@@ -1,5 +1,5 @@
 import React from 'react';
-import MyButton from '../../Button/Button';
+import MyButton from '../Button/Button';
 import './Flight.scss';
 
 interface FlightProps{
@@ -10,9 +10,10 @@ interface FlightProps{
 	duration:string;
 	amount:string
 	status: number;
+	className?:string;
 }
 
-const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount }) => {
+const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount, className = '' }) => {
 
 	// const st:string = status === 200 ? 'Ожидает выезда' : status === 300 ? 'В пути' : 'Рейс завершон';
 
@@ -21,7 +22,7 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 	}
 
 	return (
-		<div className="flight">
+		<div className={`flight ${className}`}>
 			<div className="content">
 				<div className="flight__from">
 					<span className="time">{scheduledDeparture.split(' ')[1]}</span>
@@ -38,7 +39,7 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 					<span>{amount}₽</span>
 				</div>
 			</div>
-			<MyButton onClick={send} name="Купить" />
+			<MyButton onClick={send} name="Купить" className="flight_button"/>
 			{/* <span>{st}</span> */}
 		</div>
 	)
