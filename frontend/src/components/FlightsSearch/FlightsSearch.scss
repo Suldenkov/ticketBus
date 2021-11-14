@@ -8,3 +8,13 @@
 		width: 15em;
 	}
 }
+
+.cont{
+	font-size: 0.9rem;
+	margin-left: 1em;
+	height: 3em;
+	width: 15em;
+	&:active{
+		border: 1px solid gainsboro;
+	}
+}

@@ -11,7 +11,7 @@ const Header:React.FC<HeaderProps> = ({setVisible}) => {
 
 	return (
 		<header className={style.header}>
-			<Link to=''>
+			<Link to='/'>
 				<img className={style.logo} src={img} alt="" />
 			</Link>
 			<div className={style.info} onClick={() => setVisible(true)}>

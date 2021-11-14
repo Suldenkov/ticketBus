@@ -11,6 +11,10 @@ import { fetchParkCar } from "../../store/action-creator/ParkCar";
 import SearchInput from "../SearchInput/SearchInput";
 import Calendar from "../Calendar/Calendar";
 
+import { useTypeSelector } from '../../hooks/useTypeSelector';
+// import Select from "react-dropdown-select";
+import Select from 'react-select';
+
 const FlightsSearch: React.FC = (props) => {
 	
 	const [startDate, setStartDate] = useState<Date | null>(null);
@@ -18,9 +22,9 @@ const FlightsSearch: React.FC = (props) => {
 	let history = useHistory();
 	const dispatch = useDispatch()
 
-	const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(fetchParkCar(e.target.value))
-		setSearchParam({...searchParam, [e.target.name]: e.target.value})
+	const onChange = (values:any) => {
+		dispatch(fetchParkCar(values))
+		setSearchParam({...searchParam, ['departure']: values})
 	}
 
 	const onClickItem = (value: string, name:string) => {
@@ -33,14 +37,29 @@ const FlightsSearch: React.FC = (props) => {
 		history.push(`/flights?arrival=${searchParam.arrival}&departure=${searchParam.departure}&date=${formatDate(startDate)}`);
 	}
 
-	// useEffect(() => {
-	// 	window.addEventListener('click', (e:any) => {
-	// 		console.log(e.target)
-	// 	});
-	// }, [])
+	const {parks} = useTypeSelector(state => state.park)
+
+	useEffect(() => {
+		dispatch(fetchParkCar(''))
+	}, [dispatch])
+
+	let mas = parks.map((elem, index) => {
+		return ({label: elem.city, value: index})
+	})
+
+	// const customStyles = {
+	// 	dropdownIndicator: () => ({
+	// 		display: 'none',
+	// 	}),
+	// 	indicatorSeparator: () => ({
+	// 		display: 'none',
+	// 	}),
+	// }
 
 	return (
 		<form className="flights_search">
+			{/* <Select className="cont" options={mas} styles={customStyles} isClearable={true} placeholder="Октуда"/> */}
+			{/* <Select options={mas} onChange={(values) => console.log(values)}/> */}
 			<SearchInput
 				value={searchParam.departure}
 				placeholder="Откуда"

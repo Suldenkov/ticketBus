@@ -1,0 +1,47 @@
+.profile{
+	max-width: 1000px;
+	min-width: 600px;
+	width: 63%;
+	padding-top: 15em;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	&_title{
+		text-align: left;
+		margin-bottom: 2.5em;
+
+		h3{
+			font-weight: 500;
+			font-size: 1.8rem;
+    	color: #424543;
+		}
+	}
+
+	&_content{
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&_info{
+		background: white;
+		box-shadow: rgba(0, 0, 0 , 0.15) 0px 2px 4px;
+		border-radius: 6px;
+		padding: 2em 3em 2em 3em;
+
+		&_about{
+			font-size: 1.1rem;
+			line-height: 1.4em;
+			width: 20em;
+		}
+	}
+
+	&_input{
+		font-size: 1.6rem;
+		width: 12em;
+		height: 1.55em;
+		margin-top: 1em;
+	}
+}

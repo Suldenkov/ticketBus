@@ -1,27 +1,27 @@
-export enum userActionTypes {
-	FETCH_USER = 'FETCH_USER',
-	FETCH_USER_SUCCES = 'FETCH_USER_SUCCES',
-	FETCH_USER_ERROR = 'FETCH_USER_ERROR',
+export enum authActionTypes {
+	FETCH_AUTH = 'FETCH_AUTH',
+	FETCH_AUTH_SUCCES = 'FETCH_AUTH_SUCCES',
+	FETCH_AUTH_ERROR = 'FETCH_AUTH_ERROR',
 }
 
-export interface userState {
-	user: any[];
+export interface authState {
+	user: {};
 	loading: boolean;
 	error: null | string;
 }
 
-interface FetchUserAction {
-	type: userActionTypes.FETCH_USER;
+interface FetchAuthAction {
+	type: authActionTypes.FETCH_AUTH;
 }
 
-interface FetchUserSuccesAction {
-	type: userActionTypes.FETCH_USER_SUCCES;
+interface FetchAuthSuccesAction {
+	type: authActionTypes.FETCH_AUTH_SUCCES;
 	payload: any[];
 }
 
-interface FetchUserErrorAction {
-	type: userActionTypes.FETCH_USER_ERROR;
+interface FetchAuthErrorAction {
+	type: authActionTypes.FETCH_AUTH_ERROR;
 	payload: string;
 }
 
-export type userAction = FetchUserAction | FetchUserSuccesAction | FetchUserErrorAction;
+export type authAction = FetchAuthAction | FetchAuthSuccesAction | FetchAuthErrorAction;

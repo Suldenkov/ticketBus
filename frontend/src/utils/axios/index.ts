@@ -1,12 +1,12 @@
 import {interceptors} from './interseptors';
 import axios from "axios";
 
-const instance = axios.create({
+const $axios = axios.create({
 	headers: {
 		'Content-Type' : 'application/json'
 	}
 })
 
-interceptors(instance)
+interceptors($axios)
 
-export default instance
+export default $axios

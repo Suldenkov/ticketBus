@@ -4,6 +4,9 @@ import MyButton from "../Button/Button";
 import { Iparam } from "../../models/login";
 import './Modal.scss';
 import { login } from "../../services/auth.service";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../../store/action-creator/user";
+import axios from "axios";
 
 interface ModalProps{
 	setVisible: any;
@@ -12,10 +15,11 @@ const Modal:React.FC<ModalProps> = ({setVisible}) => {
 
 	const [param, setParam] =  useState<Iparam>({username:'', password: ''})
 
+	const dispatch = useDispatch()
 	
-	const onClikAuthorize = (e: React.MouseEvent<HTMLElement>) => {
+	const onClikAuthorize = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault()
-		login(param)
+		dispatch(fetchUser(param))
 		setVisible(false)
 	}
 
