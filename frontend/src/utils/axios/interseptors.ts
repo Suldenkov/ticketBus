@@ -1,4 +1,4 @@
-const lsTokenKey = 'access_token'
+const lsTokenKey = 'access'
 
 const setToken = (req: any) => {
 	req.headers.Authorization = `Bearer ${localStorage.getItem(lsTokenKey)}`

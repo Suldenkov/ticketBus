@@ -10,10 +10,10 @@ export const fetchUser = (param:Iparam) => {
 		try{
 			dispath({type: authActionTypes.FETCH_AUTH});
 			let response = await login(param)
-			localStorage.setItem('access_token', response.data.access_token)
+			localStorage.setItem('access', response.data.access)
+			localStorage.setItem('refresh', response.data.refresh)
 			response = await UserService.fetchUser()
-			console.log(response.data)
-			// dispath({type: userActionTypes.FETCH_USER_SUCCES, payload: response.data})
+			dispath({type: authActionTypes.FETCH_AUTH_SUCCES, payload: response.data})
 		} catch (error){
 			dispath({type: authActionTypes.FETCH_AUTH_ERROR, payload: 'error'})
 		}

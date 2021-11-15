@@ -5,7 +5,10 @@ export enum authActionTypes {
 }
 
 export interface authState {
-	user: {};
+	user: {
+		data: any;
+		isAuth: Boolean;
+	};
 	loading: boolean;
 	error: null | string;
 }
@@ -16,12 +19,19 @@ interface FetchAuthAction {
 
 interface FetchAuthSuccesAction {
 	type: authActionTypes.FETCH_AUTH_SUCCES;
-	payload: any[];
+	payload: Object;
 }
 
 interface FetchAuthErrorAction {
 	type: authActionTypes.FETCH_AUTH_ERROR;
 	payload: string;
+}
+
+export interface UserResponse{
+	username: string;
+	last_name: string;
+	passenger: any;
+	email: string;
 }
 
 export type authAction = FetchAuthAction | FetchAuthSuccesAction | FetchAuthErrorAction;

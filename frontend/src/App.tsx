@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import HomePage from './screens/Home/Home';
 import {Route, Switch} from 'react-router-dom'
 import FlightsForm from './screens/Flights/Flights';
 import Account from './screens/Account/Account';
-
+import {useDispatch} from 'react-redux';
+import { checkAuth } from './services/auth.service';
 
 const App : React.FC = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (localStorage.getItem('access'))
+      checkAuth(dispatch)
+  }, [dispatch])
   
   return (
     <div className="App">
