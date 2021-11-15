@@ -14,7 +14,8 @@ const FlightsList: React.FC = () => {
 	
   useEffect(() => {
     dispatch(fetchFlights({arrival: `${query.get('arrival')}`, departure: `${query.get('departure')}`, date: `${query.get('date')}`}))
-  }, [dispatch])
+		console.log('here')
+  }, [dispatch, query])
 
   if (loading)
     return <h1>load</h1>
@@ -25,15 +26,19 @@ const FlightsList: React.FC = () => {
 	return (
 		<div className={style.flights}>
 			{
-				flights.map((elem) => 
-									<Flight key={elem.id}
-									scheduledDeparture={elem.scheduledDeparture}
-									scheduledArrival={elem.scheduledArrival}
-									arrivalcity={elem.arrivalAutopark.parkName}
-									departurecity={elem.departureAutopark.parkName}
-									duration={elem.duration}
-									amount={elem.amount}
-									status={elem.status}/>)
+				flights.length
+				?
+					flights.map((elem) => 
+										<Flight key={elem.id}
+										scheduledDeparture={elem.scheduledDeparture}
+										scheduledArrival={elem.scheduledArrival}
+										arrivalcity={elem.arrivalAutopark.parkName}
+										departurecity={elem.departureAutopark.parkName}
+										duration={elem.duration}
+										amount={elem.amount}
+										status={elem.status}/>)
+				:
+				<h3>К сожалению ничего нет, попробуйте посмотреть что-то ещё</h3>
 			}
 		</div>
 	)

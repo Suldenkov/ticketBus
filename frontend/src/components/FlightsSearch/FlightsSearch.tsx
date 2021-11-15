@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import MyButton from "../Button/Button";
-
 import Prompt from "../Prompt/Prompt";
 import { formatDate } from "../../utils/formatDate";
 import './FlightsSearch.scss';
-
 import {useDispatch} from 'react-redux';
 import { fetchParkCar } from "../../store/action-creator/ParkCar";
 import SearchInput from "../SearchInput/SearchInput";
 import Calendar from "../Calendar/Calendar";
 
-import { useTypeSelector } from '../../hooks/useTypeSelector';
-// import Select from "react-dropdown-select";
-import Select from 'react-select';
+// import Select from 'react-select';
 
 const FlightsSearch: React.FC = (props) => {
 	
@@ -22,9 +18,9 @@ const FlightsSearch: React.FC = (props) => {
 	let history = useHistory();
 	const dispatch = useDispatch()
 
-	const onChange = (values:any) => {
-		dispatch(fetchParkCar(values))
-		setSearchParam({...searchParam, ['departure']: values})
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch(fetchParkCar(e.target.value))
+		setSearchParam({...searchParam, [e.target.name]: e.target.value})
 	}
 
 	const onClickItem = (value: string, name:string) => {
@@ -37,16 +33,13 @@ const FlightsSearch: React.FC = (props) => {
 		history.push(`/flights?arrival=${searchParam.arrival}&departure=${searchParam.departure}&date=${formatDate(startDate)}`);
 	}
 
-	const {parks} = useTypeSelector(state => state.park)
-
 	useEffect(() => {
 		dispatch(fetchParkCar(''))
 	}, [dispatch])
 
-	let mas = parks.map((elem, index) => {
-		return ({label: elem.city, value: index})
-	})
-
+	// let mas = parks.map((elem, index) => {
+	// 	return ({label: elem.city, value: index})
+	// })
 	// const customStyles = {
 	// 	dropdownIndicator: () => ({
 	// 		display: 'none',
@@ -59,7 +52,6 @@ const FlightsSearch: React.FC = (props) => {
 	return (
 		<form className="flights_search">
 			{/* <Select className="cont" options={mas} styles={customStyles} isClearable={true} placeholder="Октуда"/> */}
-			{/* <Select options={mas} onChange={(values) => console.log(values)}/> */}
 			<SearchInput
 				value={searchParam.departure}
 				placeholder="Откуда"

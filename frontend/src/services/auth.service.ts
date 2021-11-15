@@ -1,5 +1,5 @@
 import $axios from './../utils/axios';
-import { AuthResponse, Iparam } from "../models/login";
+import { Iparam } from "../models/login";
 import { AxiosResponse } from 'axios';
 
 export const login = (data: Iparam): Promise<AxiosResponse<any>> => {

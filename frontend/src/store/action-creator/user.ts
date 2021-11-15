@@ -1,4 +1,3 @@
-import { AuthResponse } from './../../models/login';
 import { login } from './../../services/auth.service';
 import { authAction, authActionTypes } from './../../models/user';
 import { Dispatch } from "redux"

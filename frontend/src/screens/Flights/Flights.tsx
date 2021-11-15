@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Isort } from "../../models/sortFlights";
-import FlightsFilter from "../FlightsFilter/FlightsFilter";
-import FlightsList from './../FlightsList/FlightsList';
+import FlightsFilter from "../../components/FlightsFilter/FlightsFilter";
+import FlightsList from '../../components/FlightsList/FlightsList';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import {useDispatch} from 'react-redux';
-import style from './FlightsForm.module.scss';
+import './Flights.scss';
 import { flightActionTypes } from "../../models/flight";
+import FlightsSearch from "./../../components/FlightsSearch/FlightsSearch";
+import Header from "./../../components/Header/Header";
 
 
 const FlightsForm: React.FC = () => {
@@ -19,11 +21,17 @@ const FlightsForm: React.FC = () => {
 	}
 
 	return (
-		<div className={style.form}>
-			<FlightsFilter 
-			selectedSort={selectedSort}
-			onChange={sortFlights}/>
-			<FlightsList/>
+		<div className="flights">
+			<Header theme='dark'/>
+			<div className="flights_top">
+				<FlightsSearch/>
+			</div>
+			<div className="flights_form">
+				<FlightsFilter 
+				selectedSort={selectedSort}
+				onChange={sortFlights}/>
+				<FlightsList/>
+			</div>
 		</div>
 		)
 }

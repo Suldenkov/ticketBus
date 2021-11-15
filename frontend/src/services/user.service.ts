@@ -1,4 +1,3 @@
-import { fetchUser } from './../store/action-creator/user';
 import $axios from "../utils/axios";
 import { AxiosResponse } from 'axios';
 

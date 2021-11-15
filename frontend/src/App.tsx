@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import HomePage from './screens/Home/Home';
 import {Route, Switch} from 'react-router-dom'
-import FlightsForm from './components/FlightsForm/FlightsForm';
+import FlightsForm from './screens/Flights/Flights';
 import Account from './screens/Account/Account';
 
 

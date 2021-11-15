@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import History from "../History/History";
 import "./Account.scss";
