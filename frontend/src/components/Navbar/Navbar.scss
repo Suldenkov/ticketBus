@@ -35,3 +35,12 @@
 		border-bottom: 2px solid rgb(223, 14, 14);
 	}
 }
+
+@media (min-width: 1200px) {
+	// .navbar{
+	// 	padding-bottom: 0.2em;
+	// }
+	.nav_link:first-child{
+		margin-left: 0.5em;
+	}
+}

@@ -14,11 +14,11 @@ const Profile: React.FC = () => {
 			<div className="profile_content">
 				<div className="profile_card">
 					<div className="profile_title">
-							<h3>Контактная информация</h3>	
+						<h3>Контактная информация</h3>	
 					</div>
 					<div className="profile_info">
 						<div className="profile_info_about">
-								<span>Используется для отправки электронного биллета, а также способ связи в случае отмены или изменения деталей поездки</span>
+							<span>Используется для отправки электронного биллета, а также способ связи в случае отмены или изменения деталей поездки</span>
 						</div>
 						<MyInput placeholder='email' value={user.email} name='email' type='email' onChange={onChange} className='profile_input'/>
 						<MyInput placeholder='Phone' value={user.phone} name='phone' onChange={onChange} type='phone' className='profile_input'/>

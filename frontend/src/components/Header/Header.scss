@@ -58,3 +58,14 @@
 	}
 }
 
+
+@media (min-width: 1200px) {
+	.header{
+		z-index: 5;
+		padding: 1.5em 5em 0 5em;
+	}
+
+	.logo{
+		width: 8em;
+	}
+}
