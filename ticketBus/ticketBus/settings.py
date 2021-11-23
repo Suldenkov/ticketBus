@@ -55,7 +55,6 @@ INSTALLED_APPS = [
 	'drf_yasg',
 	'rest_framework',
 	'rest_framework_simplejwt',
-	'oauth2_provider',
 	'corsheaders',
 	'accounts',
 	'flight',
@@ -157,6 +156,8 @@ REST_FRAMEWORK = {
 	],
 }
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 # SIMPLE_JWT = {
 # 	'AUTH_COOKIE': 'access_token',
 # 	'AUTH_COOKIE_DOMAIN': None,
@@ -164,23 +165,5 @@ REST_FRAMEWORK = {
 # 	'AUTH_COOKIE_HTTP_ONLY': True,
 # 	'AUTH_COOKIE_PATH': '/',
 # 	'AUTH_COOKIE_SAMESITE': 'Strict'
-# }
-# OAUTH2_PROVIDER = {
-# 	'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:8081/o/introspect/',
-# 	'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': ('SPO5Xek2NTde4S4XMCxCuxexvG1IjRdRJReT8ZPk','d0kRPsJXESx9f09rB76XiK31rfToH95mPGR6s6ivGgCxMKOWTXOWqewa57JGDBAW2ydXijV1QKoAAbOHatb6ip3YxqfBcirqSya81j6qSuKqju9SfoX5QQLsfXCyIM2U'),
-# 	'SCOPES': {'read': 'Read scope',
-# 			   'write': 'Write scope',
-# 			   'groups': 'Access to your groups',
-# 			   'introspection': 'Introspect token scope',
-# 			   }
-# }
-#
-# REST_FRAMEWORK = {
-# 	# 'DEFAULT_PERMISSION_CLASSES': (
-# 	# 	'rest_framework.permissions.IsAuthenticated',
-# 	# ),
-# 	'DEFAULT_AUTHENTICATION_CLASSES': (
-# 		'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-# 	)
 # }
 

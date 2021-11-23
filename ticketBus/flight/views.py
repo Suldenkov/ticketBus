@@ -1,6 +1,6 @@
 import datetime
 from .serializers import FlightListSerializer, FlightDetailSerializer, FlightCreateSerializer, ParkCarSerializer
-from .models import Flight, ParkCar, Bus
+from .models import Flight, ParkCar, Bus, Ticket
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -60,7 +60,7 @@ class FlightViewSet(viewsets.ModelViewSet):
 
 
 class ParkCarViewSet(viewsets.ModelViewSet):
-	permission_classes_by_action = {'list': [AllowAny],}
+	permission_classes_by_action = {'list': [AllowAny], }
 
 	def list(self, request):
 		queryset = self.get_queryset()
@@ -73,3 +73,19 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		if city is not None:
 			queryset = queryset.filter(city__istartswith=city)
 		return queryset[:5]
+
+
+class PlaceViewSet(viewsets.ModelViewSet):
+	permission_classes_by_action = {'list': [AllowAny], }
+
+	def list(self, request):
+		queryset = get_object_or_404(Flight, pk=1)
+		obj = {'countPlace': queryset.bus.countPlace}
+		queryset = Ticket.objects.filter(flight=1)
+		mas = []
+		for seats in queryset:
+			mas.append(seats.seat_no)
+		obj['busyPlaces'] = mas
+		return Response(obj)
+
+

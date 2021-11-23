@@ -11,8 +11,9 @@ class ParkCar(models.Model):
 
 
 class Bus(models.Model):
-	busNumber = models.IntegerField()
+	busNumber = models.CharField(max_length=8)
 	model = models.CharField(max_length=10)
+	countPlace = models.IntegerField()
 
 
 class Place(models.Model):
@@ -34,3 +35,4 @@ class Flight(models.Model):
 class Ticket(models.Model):
 	passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
 	flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+	seat_no = models.IntegerField()

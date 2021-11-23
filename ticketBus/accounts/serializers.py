@@ -1,8 +1,7 @@
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import Passenger
+from .models import Passenger, CustomUser
 
 
 class CookieTokenRefreshSerializer(TokenRefreshSerializer):
@@ -26,7 +25,7 @@ class PassengerUserSerializer(serializers.ModelSerializer):
 	passenger = PassengerSerializer()
 
 	class Meta:
-		model = User
+		model = CustomUser
 		fields = ('username', 'password', 'last_name', 'passenger', 'email')
 		extra_kwargs = {
 			'password': {'write_only': True}
