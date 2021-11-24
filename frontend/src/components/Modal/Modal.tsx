@@ -11,7 +11,7 @@ interface ModalProps{
 }
 const Modal:React.FC<ModalProps> = ({setVisible}) => {
 
-	const [param, setParam] =  useState<Iparam>({username:'', password: ''})
+	const [param, setParam] =  useState<Iparam>({email:'', password: ''})
 	const dispatch = useDispatch()
 	
 	const onClikAuthorize = async (e: React.MouseEvent<HTMLElement>) => {
@@ -39,7 +39,7 @@ const Modal:React.FC<ModalProps> = ({setVisible}) => {
 					</div>
 					<div className="modal_body">
 							<form className="modal_form">
-								<MyInput placeholder="Имя пользователя" value={param.username} onChange={onchangeAccount} name='username' className="modal_form_element"/>
+								<MyInput placeholder="Имя пользователя" value={param.email} onChange={onchangeAccount} name='email' className="modal_form_element"/>
 								<MyInput placeholder="Пароль" value={param.password} onChange={onchangeAccount} name='password' className="modal_form_element" type="password"/>
 								<MyButton name="Войти" onClick={onClikAuthorize} className="modal_form_element"/>
 							</form>

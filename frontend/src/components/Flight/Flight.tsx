@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import MyButton from '../Button/Button';
 import './Flight.scss';
 
@@ -10,15 +11,15 @@ interface FlightProps{
 	duration:string;
 	amount:string
 	status: number;
+	id:number;
 	className?:string;
 }
 
-const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount, className = '' }) => {
-
-	// const st:string = status === 200 ? 'Ожидает выезда' : status === 300 ? 'В пути' : 'Рейс завершон';
+const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount, id, className = '' }) => {
+	const history = useHistory()
 
 	const send = () => {
-		console.log('send')
+		history.push(`/flight/${id}`)
 	}
 
 	return (

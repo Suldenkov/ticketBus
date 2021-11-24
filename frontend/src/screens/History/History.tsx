@@ -15,7 +15,8 @@ const History: React.FC = () => {
 			{
 				mas.length ?
 				mas.map((elem) => <div key={elem.id} className="history_block">
-					<Flight 
+					<Flight
+					id={elem.id}
 					scheduledArrival='2143 19:00' 
 					scheduledDeparture='2143 13:00'
 					arrivalcity={elem.arrival}

@@ -1,0 +1,28 @@
+.bus_seat{
+	box-sizing: border-box;
+	width: 35px;
+	height: 35px;
+	border: 1px solid rgb(36, 167, 69);
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0.3em;
+	cursor: pointer;
+
+	&:nth-child(even){
+		margin-bottom: 2.6em;
+	}
+
+	&:nth-child(4n){
+		margin-bottom: 0;
+	}
+
+	&_busy{
+		pointer-events: none;
+		opacity: 0.5;
+		background: #CCC;
+		border: 1px solid #CCC;
+	}
+}
+
