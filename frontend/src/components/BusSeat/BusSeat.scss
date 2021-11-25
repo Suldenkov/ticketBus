@@ -9,6 +9,7 @@
 	align-items: center;
 	margin-bottom: 0.3em;
 	cursor: pointer;
+	background-color: white;
 
 	&:nth-child(even){
 		margin-bottom: 2.6em;
@@ -23,6 +24,11 @@
 		opacity: 0.5;
 		background: #CCC;
 		border: 1px solid #CCC;
+	}
+
+	&_select{
+		background-color: rgb(36, 167, 69);
+		color: white;
 	}
 }
 

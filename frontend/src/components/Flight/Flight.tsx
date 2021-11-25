@@ -9,7 +9,7 @@ interface FlightProps{
 	arrivalcity: string;
 	departurecity: string;
 	duration:string;
-	amount:string
+	amount:string;
 	status: number;
 	id:number;
 	className?:string;

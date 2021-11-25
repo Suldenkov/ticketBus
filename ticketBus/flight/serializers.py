@@ -44,17 +44,15 @@ class BusSerializer(serializers.ModelSerializer):
 class FlightDetailSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
-
-	##test##
-	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-	sheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-	#######
+	scheduledDeparture = serializers.DateTimeField(format="%d.%m.%Y %H:%M")
+	scheduledArrival = serializers.DateTimeField(format="%d.%m.%Y %H:%M")
+	amount = serializers.DecimalField(max_digits=10, decimal_places=0)
 	bus = BusSerializer()
 
 	class Meta:
 		model = Flight
 		fields = (
-			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus')
+			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus', 'amount')
 
 
 class FlightCreateSerializer(serializers.ModelSerializer):

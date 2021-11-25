@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import PlaceService from "../../services/place.service";
+import React from "react";
 import BusSeat from "../BusSeat/BusSeat";
-import './FlightDetail.scss';
+import './BusScheme.scss';
 
-const FlightDetail:React.FC = (props) => {
-	const {id} = useParams<{id?: string}>()
-	const [data, setData] = useState<any>({countPlace: 0, busyPlaces:[]})
+interface BusSchemeProps{
+	countPlace: number;
+	busyPlaces: number[];
+	setSelectPlace: any;
+}
 
-	const f = async () => {
-		const response = await PlaceService.fetchPlace()
-		setData(response.data)
-	}
-	
-	useEffect(() => {
-		f()
-	}, [id])
-
-	console.log(data.countPlace)
+const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, setSelectPlace}) => {
 	return (
-		<div>
-			<div className="bus">
+		<div className="bus">
 				<div className="bus_streing">
 					<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
 	width="1280.000000pt" height="1158.000000pt" viewBox="0 0 1280.000000 1158.000000"
@@ -54,12 +44,17 @@ const FlightDetail:React.FC = (props) => {
 				</div>
 				<div className="bus_seats">
 					{
-						Array.from(Array(data.countPlace).keys()).map((elem) => <BusSeat key={elem} seat_no={elem + 1} className={ data.busyPlaces.includes(elem + 1) ? 'bus_seat_busy' : ''}/>)
+						Array.from(Array(countPlace).keys()).map((elem) => 
+							<BusSeat 
+								key={elem} 
+								seat_no={elem + 1}
+								setSelectPlace={setSelectPlace}
+								className={ busyPlaces.includes(elem + 1) ? 'bus_seat_busy' : ''}/>
+						)
 					}
 				</div>
 			</div>
-		</div>
 	)
 }
 
-export default FlightDetail
+export default BusScheme

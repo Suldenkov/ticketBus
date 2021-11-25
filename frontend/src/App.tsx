@@ -6,7 +6,7 @@ import FlightsForm from './screens/Flights/Flights';
 import Account from './screens/Account/Account';
 import {useDispatch} from 'react-redux';
 import { checkAuth } from './services/auth.service';
-import FlightDetail from './components/FlightDetail/FlightDetail';
+import FlightDetail from './screens/FlightDetail/FlightDetail';
 
 const App : React.FC = () => {
   const dispatch = useDispatch()

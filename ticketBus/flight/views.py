@@ -35,8 +35,15 @@ class FlightViewSet(viewsets.ModelViewSet):
 	def retrieve(self, request, pk=None):
 		queryset = Flight.objects.all()
 		flight = get_object_or_404(queryset, pk=pk)
+		obj = {'countPlace': flight.bus.countPlace}
+		queryset = Ticket.objects.filter(flight=pk)
+		mas = []
+		for seats in queryset:
+			mas.append(seats.seat_no)
+		obj['busyPlaces'] = mas
 		serializer = FlightDetailSerializer(flight)
-		return Response(serializer.data)
+		obj.update(serializer.data)
+		return Response(obj)
 
 	def create(self, request):
 		departureAutopark = ParkCar.objects.get(pk=request.data['departureAutopark'])
@@ -73,19 +80,3 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		if city is not None:
 			queryset = queryset.filter(city__istartswith=city)
 		return queryset[:5]
-
-
-class PlaceViewSet(viewsets.ModelViewSet):
-	permission_classes_by_action = {'list': [AllowAny], }
-
-	def list(self, request):
-		queryset = get_object_or_404(Flight, pk=1)
-		obj = {'countPlace': queryset.bus.countPlace}
-		queryset = Ticket.objects.filter(flight=1)
-		mas = []
-		for seats in queryset:
-			mas.append(seats.seat_no)
-		obj['busyPlaces'] = mas
-		return Response(obj)
-
-

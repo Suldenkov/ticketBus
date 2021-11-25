@@ -1,0 +1,33 @@
+.flight_info{
+	width: 16.5em;
+	height: 30em;
+	padding: 1em 0;
+	box-shadow: rgba(0, 0, 0 , 0.15) 0px 2px 4px;
+	border-radius: 6px;
+	background-color: white;
+
+	&_title{
+		font-size: 0.85rem;
+		line-height: 1.5em;
+		color:rgb(151, 150, 150);
+		font-weight: normal;
+		display: block;
+	}
+
+	&_field{
+		padding: 1em 1.5em;
+		font-size: 0.85rem;
+		line-height: 1.5em;
+		font-weight: bold;
+		&:last-child{
+			font-size: 0.85rem;
+			span:last-child{
+				display: block;
+				font-weight: 500;
+				font-size: 1.2rem;
+			}
+			font-weight: normal;
+			border-top: 1px solid rgb(202, 200, 200);
+		}
+	}
+}
