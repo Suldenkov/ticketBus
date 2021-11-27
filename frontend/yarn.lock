@@ -10790,6 +10790,11 @@
   "resolved" "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.0.tgz"
   "version" "3.2.0"
 
+"react-hook-form@^7.20.4":
+  "integrity" "sha512-Nvy6TnNMlBoR+qS8FpA8lrqtGJ4uoi/MRYEgMEdBMY0HwHVuC7wB1sk6wTjg7FjOUt7QqMAP2W/vOhTWbKrtkQ=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.20.4.tgz"
+  "version" "7.20.4"
+
 "react-inputpicker@^1.0.2-beta":
   "integrity" "sha512-CoL+VcOhCFdGJN2Cl9OJFCD/7uayUuL83tMerf2CyGaYA7xCPpnXFMqPHSxGCN0t3S4cL0/ValprIS6kM2oJPw=="
   "resolved" "https://registry.npmjs.org/react-inputpicker/-/react-inputpicker-1.0.2-beta.tgz"

@@ -4,15 +4,16 @@ import './MySelect.scss';
 interface MyCheckboxProps{
 	options: any[];
 	name: string;
+	className?:string;
 }
 
-const MyCheckbox: React.FC<MyCheckboxProps> = ({options, name}) => {
+const MyCheckbox: React.FC<MyCheckboxProps> = ({options, name, className=''}) => {
 	const onChangeValue = (e: any) => {
     console.log(e.target.value);
   }
 
 	return (
-		<div className="checkbox" onChange={onChangeValue}>
+		<div className={`checkbox ${className}`} onChange={onChangeValue}>
 				{
 					options.map((option, index) =>
 						<div key={index} className="radio_element">

@@ -1,17 +1,17 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import './MyInput.scss';
 
 interface MyInputProps{
 	placeholder: string;
-	value:string;
+	value?:string;
 	onChange?: any;
-	name: string;
+	name?: string;
 	focusControl?:any;
-	className?:string | undefined
-	type?:string | undefined
+	className?:string | undefined;
+	type?:string | undefined;
 }
 
-const MyInput:React.FC<MyInputProps> = ({placeholder, value, onChange, name, focusControl, className, type='text'}) =>{
+const MyInput = forwardRef<any, MyInputProps>(({placeholder, value, onChange, name, focusControl, className, type='text'}, ref) =>{
 
 	return (
 		<div className={className ? `my_input_container ${className}` : 'my_input_container'}>
@@ -24,9 +24,11 @@ const MyInput:React.FC<MyInputProps> = ({placeholder, value, onChange, name, foc
 			placeholder={placeholder}
 			className="my_input"
 			type={type}
-			autoComplete="off"/>
+			autoComplete="off"
+			ref={ref}
+			/>
 		</div>
 	)
-}
+})
 
 export default MyInput
