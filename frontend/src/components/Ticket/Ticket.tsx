@@ -1,6 +1,6 @@
 import React from "react";
 import MyInput from "../MyInput/MyInput";
-import MyCheckbox from "../MySelect/MySelect";
+import RadioButton from "./../RadioButton/RadioButton";
 import {  UseFormRegister } from "react-hook-form"
 import "./Ticket.scss";
 
@@ -12,12 +12,10 @@ interface TicketProps{
 
 const Ticket:React.FC<TicketProps> = ({id, register, errors}) => {
 
-	// console.log(errors)
-
 	return (
 		<div className="ticket">
 			<div className="ticket__title">
-				<h3>Биллет {id}</h3>
+				<h3>Биллет {id + 1}</h3>
 			</div>
 				<div className="ticket__field">
 					<MyInput
@@ -40,7 +38,7 @@ const Ticket:React.FC<TicketProps> = ({id, register, errors}) => {
 					{errors.patronymic && <p>It field isrequired</p>}
 				</div>
 				<div className="ticket__field">
-					<MyCheckbox options={[{text: 'M'}, {text: 'Ж'}]} name="gender" className="ticket_radiobutton"/>
+					<RadioButton register={register} id={id} options={[{text: 'M'}, {text: 'Ж'}]} name="gender" className="ticket_radiobutton"/>
 					<MyInput
 						{...register(`ticket.${id}.document`, { required: true})}
 						placeholder="Номер документа"

@@ -3,12 +3,15 @@ import { useHistory, useParams } from "react-router";
 // import { useTypeSelector } from "../../hooks/useTypeSelector";
 import FlightService from "../../services/flight.service";
 import BusScheme from "../../components/BusScheme/BusScheme";
-import Navbar from "../../components/Navbar/Navbar";
 import FlightInfo from "./FlightInfo/FlightInfo";
 import FlightPrompt from "./FlightPrompt/FlightPrompt";
 import './FlightDetail.scss';
 
-const FlightDetail:React.FC = (props) => {
+interface FlightDetailProps{
+	path:string;
+}
+
+const FlightDetail:React.FC<FlightDetailProps> = ({path}) => {
 	const {id} = useParams<{id?: string}>()
 	const [data, setData] = useState<any>({countPlace: 0, busyPlaces:[], scheduledDeparture: '', scheduledArrival: '', amount: ''})
 	const [selectPlace, setSelectPlace] = useState<number[]>([])
@@ -26,9 +29,12 @@ const FlightDetail:React.FC = (props) => {
 		history.goBack()
 	}
 
+	const onClickNextPage = () => {
+		history.push(`${path}?flight=${id}&amount=${selectPlace.length}`)
+	}
+
 	return (
 		<div className="flight_detail">
-			<Navbar routs={[]}/>
 			<div className="flight_detail_header">
 					<span onClick={onClickGoBack}><span className="arrow">&#10140;</span>Go back</span>
 			</div>
@@ -45,7 +51,7 @@ const FlightDetail:React.FC = (props) => {
 					amount={Number(data.amount)}
 					countPassenger={selectPlace.length}
 					/>
-				<FlightPrompt selectPlace={selectPlace}/>
+				<FlightPrompt selectPlace={selectPlace} onClickHandler={onClickNextPage}/>
 			</div>
 		</div>
 	)

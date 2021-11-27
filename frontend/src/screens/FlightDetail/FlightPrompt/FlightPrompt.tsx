@@ -3,13 +3,10 @@ import MyButton from "../../../components/Button/Button";
 
 interface FlightPromptProps{
 	selectPlace: number[];
+	onClickHandler: any;
 }
 
-const FlightPrompt:React.FC<FlightPromptProps> = ({selectPlace}) => {
-
-	const onClickHandler = () => {
-		
-	}
+const FlightPrompt:React.FC<FlightPromptProps> = ({selectPlace, onClickHandler}) => {
 	
 	return (
 		<div className="flight_info_active">

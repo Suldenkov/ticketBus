@@ -1,28 +1,17 @@
 import React from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import MyButton from "../../components/Button/Button";
 import Ticket from "../../components/Ticket/Ticket";
-import FlightDetail from "../FlightDetail/FlightDetail";
+import { useQuery } from "../../hooks/useQuery";
 import FlightInfo from "../FlightDetail/FlightInfo/FlightInfo";
-import FlightPrompt from "../FlightDetail/FlightPrompt/FlightPrompt";
-import Navbar from './../../components/Navbar/Navbar';
 import './TicketSign.scss';
 
 const TicketSign: React.FC = () => {
-	const {
-		control,
-    register,
-    handleSubmit,
-		formState: { errors }
-  } = useForm<any>({
-    defaultValues: {
-      ticket: [
-				{id: 1, firstName: '', lastName: '', document: '', patronymic: '', birthday: ''},
-				{id: 2, firstName: '', lastName: '', document: '', patronymic: '', birthday: ''},
-				{id: 3, firstName: '', lastName: '', document: '', patronymic: '', birthday: ''},
-			]
-    }});
-
-	const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+	let query = useQuery()
+	let arr = Array<any>(Number(query.get('amount'))).fill({firstName: '', lastName: '', document: '', patronymic: '', birthday: '', gender: ''})
+	
+	const {control, register, handleSubmit,formState: { errors }} = useForm<any>({ defaultValues: {ticket: arr}});
+	const { fields } = useFieldArray({
     control,
     name: "ticket",
   });
@@ -33,16 +22,15 @@ const TicketSign: React.FC = () => {
 	
 	return(
 		<div className="ticket_sign">
-			<Navbar routs={[]}/>
 			<div className="ticket_sign__content">
-				<div className="tickets">
-					<form onSubmit={handleSubmit(onSubmit)}>
-						{fields.map((field, index) => 
-						<Ticket key={field.id} id={index + 1} register={register} errors={errors}/>
-						)}
-						<input type="submit" />
-					</form>
-				</div>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div className="tickets">
+							{fields.map((field, index) => 
+							<Ticket key={index} id={index} register={register} errors={errors}/>
+							)}
+							<MyButton name="Оплатить" onClick={null}/>
+					</div>
+				</form>
 				<FlightInfo scheduledArrival='' scheduledDeparture='' amount={200} countPassenger={100}/>
 			</div>
 		</div>

@@ -19,7 +19,7 @@ const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, 
 	const history = useHistory()
 
 	const send = () => {
-		history.push(`/flight/${id}`)
+		history.push(`/purchase/flight/${id}`)
 	}
 
 	return (
