@@ -9,6 +9,7 @@ interface BusSchemeProps{
 }
 
 const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, setSelectPlace}) => {
+	
 	return (
 		<div className="bus">
 				<div className="bus_streing">

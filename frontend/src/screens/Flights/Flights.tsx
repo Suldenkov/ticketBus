@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Isort } from "../../models/sortFlights";
 import FlightsFilter from "../../components/FlightsFilter/FlightsFilter";
 import FlightsList from '../../components/FlightsList/FlightsList';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import {useDispatch} from 'react-redux';
 import './Flights.scss';
-import { flightActionTypes } from "../../models/flight";
+import { flightActionTypes, Isort } from "../../models/flight";
 import FlightsSearch from "./../../components/FlightsSearch/FlightsSearch";
 import Header from "./../../components/Header/Header";
 
 
 const FlightsForm: React.FC = () => {
 	const [selectedSort, setSelectedSort] = useState<Isort>({active:'scheduledDeparture', kind:'bottom'});
-	const {flights} = useTypeSelector(state => state.flight)
+	const {flights} = useTypeSelector(state => state.flights)
 	const dispatch = useDispatch()
 
 	const sortFlights = (selectedSort:Isort):void =>{

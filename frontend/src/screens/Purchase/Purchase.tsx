@@ -1,22 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router";
 import Navbar from "../../components/Navbar/Navbar";
+import { useQuery } from "../../hooks/useQuery";
+import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { fetchFlightDetail } from "../../store/action-creator/flightDetail";
 import FlightDetail from "../FlightDetail/FlightDetail";
+import FlightInfo from "../FlightDetail/FlightInfo/FlightInfo";
 import TicketSign from "../TicketSign/TicketSign";
 import "./Purchase.scss";
 
 const Purchase:React.FC = () => {
+	const query = useQuery()
+	const {flight} = useTypeSelector(state => state.flight)
 	let { path } = useRouteMatch();
+	const dispatch = useDispatch()
+	const [selectPlace, setSelectPlace] = useState<number[]>([])
+
+	
+	useEffect(() => {
+		const id = query.get('flight')
+		if (id){
+			if (flight.id !== Number(id))
+				dispatch(fetchFlightDetail(id))
+		}
+	}, [query, dispatch])
+
+	const childrenElem = <FlightInfo
+	scheduledArrival={flight.scheduledArrival}
+	scheduledDeparture={flight.scheduledDeparture}
+	amount={Number(flight.amount)}
+	countPassenger={selectPlace.length}
+	/>
 	
 	return (
 		<div className="purchase">
 			<Navbar routs={[]}/>
+			
 			<Switch>
-				<Route exact path={`${path}/flight/:id`}>
-						<FlightDetail path={`${path}/ticket`}/>
+				<Route exact path={`${path}/flight`}>
+						<FlightDetail path={`${path}/ticket`} selectPlace={selectPlace} setSelectPlace={setSelectPlace} children={childrenElem}/>
 				</Route>
 				<Route exact path={`${path}/ticket`}>
-					<TicketSign/>
+					<TicketSign children={childrenElem}/>
 				</Route>
 			</Switch>
 		</div>

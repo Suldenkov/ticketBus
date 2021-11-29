@@ -1,5 +1,5 @@
 import React from 'react';
-import { Isort } from '../../models/sortFlights';
+import { Isort } from '../../models/flight';
 import style from './FlightsFilter.module.scss';
 
 
@@ -16,7 +16,7 @@ const FlightsFilter: React.FC<IFlightsFilterProps> = ({onChange, selectedSort}) 
 		else
 			onChange({active: e.target.dataset.sort, kind:'bottom'})
 	}
-
+   
 	return (
 		<div className={style.filter}>
 			<div

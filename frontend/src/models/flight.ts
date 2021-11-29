@@ -34,4 +34,16 @@ interface SortFlightsAction {
 	};
 }
 
-export type FlightAction = FetchFlightsAction | FetchFlightsSuccesAction | FetchFlightsErrorAction | SortFlightsAction;
+export type FlightAction = FetchFlightsAction | FetchFlightsSuccesAction | FetchFlightsErrorAction | SortFlightsAction
+
+
+export interface searchFlights{
+	arrival:string;
+	departure:string;
+	date: string;
+}
+
+export interface Isort{
+	active:string;
+	kind:string;
+}

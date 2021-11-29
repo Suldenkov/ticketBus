@@ -9,7 +9,7 @@ import  style from './FlightsList.module.scss';
 const FlightsList: React.FC = () => {
 	let query = useQuery();
   const dispatch = useDispatch()
-	const {loading, error, flights} = useTypeSelector(state => state.flight)
+	const {loading, error, flights} = useTypeSelector(state => state.flights)
 	
 	
   useEffect(() => {
@@ -17,11 +17,11 @@ const FlightsList: React.FC = () => {
   }, [dispatch, query])
 
   if (loading)
-    return <h1>load</h1>
-
+	return <h1>load</h1>
+	
   if (error)
-    return <h1>{error}</h1>
-
+	return <h1>{error}</h1>
+	
 	return (
 		<div className={style.flights}>
 			{

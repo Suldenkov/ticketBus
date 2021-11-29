@@ -1,36 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
-// import { useTypeSelector } from "../../hooks/useTypeSelector";
-import FlightService from "../../services/flight.service";
+import React, { useState } from "react";
+import { useHistory} from "react-router";
+import { useTypeSelector } from "../../hooks/useTypeSelector";
 import BusScheme from "../../components/BusScheme/BusScheme";
 import FlightInfo from "./FlightInfo/FlightInfo";
 import FlightPrompt from "./FlightPrompt/FlightPrompt";
 import './FlightDetail.scss';
+import { useQuery } from "../../hooks/useQuery";
 
 interface FlightDetailProps{
 	path:string;
+	selectPlace: number[];
+	setSelectPlace: any;
 }
 
-const FlightDetail:React.FC<FlightDetailProps> = ({path}) => {
-	const {id} = useParams<{id?: string}>()
-	const [data, setData] = useState<any>({countPlace: 0, busyPlaces:[], scheduledDeparture: '', scheduledArrival: '', amount: ''})
-	const [selectPlace, setSelectPlace] = useState<number[]>([])
+const FlightDetail:React.FC<FlightDetailProps> = ({path, selectPlace, setSelectPlace, children}) => {
+	const query = useQuery()
 	const history = useHistory()
+	const {flight} = useTypeSelector(state => state.flight)
 	
-	useEffect(() => {
-		FlightService.fetchDeatilFlight(id)
-		.then((response: any) => {
-			response = response.data
-			setData((oldData:any) => ({...oldData, amount:response.amount, scheduledDeparture: response.scheduledDeparture, scheduledArrival: response.scheduledArrival, countPlace:response.countPlace, busyPlaces: response.busyPlaces}))
-		})
-	}, [id])
-
 	const onClickGoBack = () => {
 		history.goBack()
 	}
-
+	
 	const onClickNextPage = () => {
-		history.push(`${path}?flight=${id}&amount=${selectPlace.length}`)
+		const id = query.get('flight')
+		if (id)
+			history.push(`${path}?flight=${id}&amount=${selectPlace.length}`)
 	}
 
 	return (
@@ -43,14 +38,9 @@ const FlightDetail:React.FC<FlightDetailProps> = ({path}) => {
 					<div className="bus_container_title">
 						<h3>Выберите место на схеме автобуса</h3>
 					</div>
-					<BusScheme {...data} setSelectPlace={setSelectPlace}/>
+					<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace}/>
 				</div>
-				<FlightInfo
-					scheduledArrival={data.scheduledArrival}
-					scheduledDeparture={data.scheduledDeparture}
-					amount={Number(data.amount)}
-					countPassenger={selectPlace.length}
-					/>
+				{children}
 				<FlightPrompt selectPlace={selectPlace} onClickHandler={onClickNextPage}/>
 			</div>
 		</div>

@@ -18,8 +18,10 @@ interface FlightProps{
 const Flight : React.FC<FlightProps> = ({ scheduledDeparture, scheduledArrival, arrivalcity, departurecity, status, duration, amount, id, className = '' }) => {
 	const history = useHistory()
 
+	
+
 	const send = () => {
-		history.push(`/purchase/flight/${id}`)
+		history.push(`/purchase/flight?flight=${id}`)
 	}
 
 	return (
