@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory} from "react-router";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import BusScheme from "../../components/BusScheme/BusScheme";
-import FlightInfo from "./FlightInfo/FlightInfo";
 import FlightPrompt from "./FlightPrompt/FlightPrompt";
 import './FlightDetail.scss';
 import { useQuery } from "../../hooks/useQuery";
@@ -38,7 +37,7 @@ const FlightDetail:React.FC<FlightDetailProps> = ({path, selectPlace, setSelectP
 					<div className="bus_container_title">
 						<h3>Выберите место на схеме автобуса</h3>
 					</div>
-					<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace}/>
+					<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace} selectPlace={selectPlace}/>
 				</div>
 				{children}
 				<FlightPrompt selectPlace={selectPlace} onClickHandler={onClickNextPage}/>

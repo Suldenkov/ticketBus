@@ -5,10 +5,11 @@ interface BusSeatProps{
 	seat_no: number;
 	className?: string;
 	setSelectPlace: any;
+	selected: boolean;
 }
 
-const BusSeat:React.FC<BusSeatProps> = ({seat_no, setSelectPlace, className = ''}) => {
-	const [active, setActive] = useState<boolean>(false) 
+const BusSeat:React.FC<BusSeatProps> = ({seat_no, setSelectPlace, selected, className = ''}) => {
+	const [active, setActive] = useState<boolean>(selected) 
 
 	const onClickSeatSelection = () => {
 		setActive((oldActiveState) => !oldActiveState)
@@ -23,7 +24,7 @@ const BusSeat:React.FC<BusSeatProps> = ({seat_no, setSelectPlace, className = ''
 	}
 
 	return (
-		<div className={`bus_seat ${className}${active ? ' bus_seat_select' : ''}`} onClick={onClickSeatSelection}>
+		<div className={`bus_seat ${className}${active ? ' bus_seat__select' : ''}`} onClick={onClickSeatSelection}>
 			<span>{seat_no}</span>
 		</div>
 	)

@@ -5,10 +5,11 @@ import './BusScheme.scss';
 interface BusSchemeProps{
 	countPlace: number;
 	busyPlaces: number[];
+	selectPlace: number[],
 	setSelectPlace: any;
 }
 
-const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, setSelectPlace}) => {
+const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, selectPlace, setSelectPlace}) => {
 	
 	return (
 		<div className="bus">
@@ -45,13 +46,17 @@ const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, setSelectP
 				</div>
 				<div className="bus_seats">
 					{
-						Array.from(Array(countPlace).keys()).map((elem) => 
-							<BusSeat 
-								key={elem} 
-								seat_no={elem + 1}
-								setSelectPlace={setSelectPlace}
-								className={ busyPlaces.includes(elem + 1) ? 'bus_seat_busy' : ''}/>
-						)
+						Array.from(Array(countPlace).keys()).map((elem) => {
+							const classSeat:string = busyPlaces.includes(elem + 1) ? 'bus_seat_busy' : ''
+							return (
+								<BusSeat 
+									key={elem} 
+									seat_no={elem + 1}
+									setSelectPlace={setSelectPlace}
+									selected={selectPlace.includes(elem + 1)}
+									className={classSeat}
+								/>
+						)})
 					}
 				</div>
 			</div>
