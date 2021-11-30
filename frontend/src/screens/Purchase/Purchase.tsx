@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router";
 import Navbar from "../../components/Navbar/Navbar";
@@ -12,6 +12,7 @@ import "./Purchase.scss";
 
 const Purchase:React.FC = () => {
 	const query = useQuery()
+	const id = useMemo(() => query.get('flight'), [query])
 	const {flight} = useTypeSelector(state => state.flight)
 	let { path } = useRouteMatch();
 	const dispatch = useDispatch()
@@ -19,12 +20,10 @@ const Purchase:React.FC = () => {
 
 	
 	useEffect(() => {
-		const id = query.get('flight')
 		if (id){
-			if (flight.id !== Number(id))
 				dispatch(fetchFlightDetail(id))
 		}
-	}, [query, dispatch])
+	}, [id, dispatch])
 
 	const childrenElem = <FlightInfo
 	scheduledArrival={flight.scheduledArrival}
@@ -42,7 +41,7 @@ const Purchase:React.FC = () => {
 						<FlightDetail path={`${path}/ticket`} selectPlace={selectPlace} setSelectPlace={setSelectPlace} children={childrenElem}/>
 				</Route>
 				<Route exact path={`${path}/ticket`}>
-					<TicketSign children={childrenElem}/>
+					<TicketSign children={childrenElem} seats={selectPlace}/>
 				</Route>
 			</Switch>
 		</div>

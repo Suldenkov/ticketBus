@@ -22,7 +22,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({options, name, className='', i
 						<div key={index} className="radio_element">
 							<label className={`radio_label ${option.text === active ? 'radio_active' : ''}`}>
 								<span className="radio_text">{option.text}</span>
-								<input {...register(`ticket.${id}.${name}`, { required: true})} value={option.text} type="radio" className="radio_input"/>
+								<input {...register(`tickets.${id}.${name}`, { required: true})} value={option.text} type="radio" className="radio_input"/>
 							</label>
 						</div>
 					)

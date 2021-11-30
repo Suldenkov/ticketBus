@@ -1,4 +1,6 @@
 from datetime import timedelta
+from django.utils import timezone
+
 
 from django.db import models
 from accounts.models import Passenger
@@ -32,7 +34,18 @@ class Flight(models.Model):
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
+GENDER = (
+	('М', 'М'),
+	('Ж', 'Ж'),
+)
+
+
 class Ticket(models.Model):
-	passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
 	flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+	firstName = models.CharField(max_length=100, default='')
+	lastName = models.CharField(max_length=100, default='')
+	patronymic = models.CharField(max_length=100, default='')
+	document = models.CharField(max_length=20, default='')
+	birthday = models.DateField(default=timezone.now())
+	gender = models.CharField(max_length=20, choices=GENDER, default='')
 	seat_no = models.IntegerField()

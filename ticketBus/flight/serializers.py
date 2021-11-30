@@ -1,8 +1,5 @@
-import datetime
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import ParkCar, Flight, Bus
-import time
+from .models import ParkCar, Flight, Bus, Ticket
 
 
 class ParkCarSerializer(serializers.ModelSerializer):
@@ -26,7 +23,8 @@ class FlightListSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
 		fields = (
-		'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'duration', 'amount')
+			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark',
+			'duration', 'amount')
 
 	@staticmethod
 	def get_duration(obj):
@@ -52,10 +50,23 @@ class FlightDetailSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
 		fields = (
-			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus', 'amount')
+			'id', 'scheduledDeparture', 'scheduledArrival', 'status', 'departureAutopark', 'arrivalAutopark', 'bus',
+			'amount')
 
 
 class FlightCreateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flight
 		fields = '__all__'
+
+
+class TicketSerializer(serializers.ModelSerializer):
+	birthday = serializers.DateField(format="%d.%m.%Y")
+
+	class Meta:
+		model = Ticket
+		fields = '__all__'
+
+	def create(self, validated_data):
+		return Ticket.objects.create(**validated_data)
+

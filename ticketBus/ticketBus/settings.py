@@ -58,7 +58,6 @@ INSTALLED_APPS = [
 	'djoser',
 	'corsheaders',
 
-
 	'accounts',
 	'flight',
 ]
@@ -140,7 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -169,4 +167,9 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # 	'AUTH_COOKIE_PATH': '/',
 # 	'AUTH_COOKIE_SAMESITE': 'Strict'
 # }
+from datetime import timedelta
 
+SIMPLE_JWT = {
+	'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+	'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+}

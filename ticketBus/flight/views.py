@@ -1,11 +1,15 @@
-import datetime
-from .serializers import FlightListSerializer, FlightDetailSerializer, FlightCreateSerializer, ParkCarSerializer
+from datetime import datetime
+
+from .serializers import FlightListSerializer, \
+	FlightDetailSerializer, FlightCreateSerializer, \
+	ParkCarSerializer, TicketSerializer
 from .models import Flight, ParkCar, Bus, Ticket
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db.models import Q
+from django.db import transaction, IntegrityError
 
 
 class FlightViewSet(viewsets.ModelViewSet):
@@ -80,3 +84,30 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		if city is not None:
 			queryset = queryset.filter(city__istartswith=city)
 		return queryset[:5]
+
+
+class TicketViewSet(viewsets.ModelViewSet):
+	permission_classes_by_action = {'list': [AllowAny], 'create': [AllowAny]}
+
+	def create(self, request, *args, **kwargs):
+		req = request.data
+		try:
+			with transaction.atomic():
+				for i in range(len(req['tickets'])):
+					queryset = Ticket.objects.filter(seat_no=int(req['seats'][i]))
+					if len(queryset) > 0:
+						raise IntegrityError
+					ticket = req['tickets'][i]
+					birthday = datetime.strptime(ticket['birthday'], "%d.%m.%Y").strftime('%Y-%m-%d')
+					Ticket.objects.create(
+						firstName=ticket['firstName'],
+						lastName=ticket['lastName'],
+						patronymic=ticket['patronymic'],
+						document=ticket['document'],
+						birthday=birthday,
+						gender=ticket['gender'],
+						flight=Flight.objects.get(pk=int(req['flight'])),
+						seat_no=int(req['seats'][i]))
+		except IntegrityError:
+			return Response({'code': 120})
+		return Response({'code': 200})
