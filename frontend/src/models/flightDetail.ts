@@ -10,6 +10,8 @@ interface flightDetailData{
 	busyPlaces: number[],
 	scheduledDeparture: string,
 	scheduledArrival: string,
+	arrivalAutopark: any;
+	departureAutopark: any;
 	amount: string,
 }
 

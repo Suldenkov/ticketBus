@@ -25,20 +25,23 @@ const Purchase:React.FC = () => {
 		}
 	}, [id, dispatch])
 
-	const childrenElem = <FlightInfo
-	scheduledArrival={flight.scheduledArrival}
-	scheduledDeparture={flight.scheduledDeparture}
-	amount={Number(flight.amount)}
-	countPassenger={selectPlace.length}
-	/>
+	console.log(flight)
+	const childrenElem =
+		(<FlightInfo
+			arrivPark={flight.arrivalAutopark}
+			departPark={flight.departureAutopark}
+			scheduledArrival={flight.scheduledArrival}
+			scheduledDeparture={flight.scheduledDeparture}
+			amount={Number(flight.amount)}
+			countPassenger={selectPlace.length}
+		/>)
 	
 	return (
 		<div className="purchase">
 			<Navbar routs={[]}/>
-			
 			<Switch>
 				<Route exact path={`${path}/flight`}>
-						<FlightDetail path={`${path}/ticket`} selectPlace={selectPlace} setSelectPlace={setSelectPlace} children={childrenElem}/>
+					<FlightDetail path={`${path}/ticket`} selectPlace={selectPlace} setSelectPlace={setSelectPlace} children={childrenElem}/>
 				</Route>
 				<Route exact path={`${path}/ticket`}>
 					<TicketSign children={childrenElem} seats={selectPlace}/>

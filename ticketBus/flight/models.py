@@ -1,15 +1,15 @@
 from datetime import timedelta
 from django.utils import timezone
 
-
 from django.db import models
 from accounts.models import Passenger
 from django.contrib.auth.models import User
 
 
 class ParkCar(models.Model):
-	parkName = models.CharField(max_length=20)
-	city = models.CharField(max_length=10)
+	parkName = models.CharField(max_length=50)
+	city = models.CharField(max_length=50)
+	address = models.CharField(max_length=50, default='')
 
 
 class Bus(models.Model):
@@ -34,13 +34,11 @@ class Flight(models.Model):
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
-GENDER = (
-	('М', 'М'),
-	('Ж', 'Ж'),
-)
-
-
 class Ticket(models.Model):
+	GENDER = (
+		('М', 'М'),
+		('Ж', 'Ж'),
+	)
 	flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
 	firstName = models.CharField(max_length=100, default='')
 	lastName = models.CharField(max_length=100, default='')
