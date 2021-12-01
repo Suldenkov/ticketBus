@@ -16,8 +16,7 @@ const Profile: React.FC = () => {
 
 	const onClik = async(e: any) => {
 		e.preventDefault()
-		const res = await UserService.saveUser(user.data)
-		console.log(res)
+		await UserService.saveUser(user.data)
 	}
 
 	return (

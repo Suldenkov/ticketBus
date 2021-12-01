@@ -7,7 +7,6 @@ export const fetchFlightDetail = (id?:string) => {
 		try {
 			dispatch({type: flightDetailActionType.FETCH_FLIGHT_DETAIL})
 			const response = await FlightService.fetchDeatilFlight(id)
-			// console.log(response.data)
 			dispatch({type: flightDetailActionType.FETCH_FLIGHT_DETAIL_SUCCES, payload: response.data})
 		} catch (error) {
 			dispatch({type: flightDetailActionType.FETCH_FLIGHT_DETAIL_ERROR, payload: 'Error'})

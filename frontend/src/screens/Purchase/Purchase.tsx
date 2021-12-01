@@ -25,7 +25,6 @@ const Purchase:React.FC = () => {
 		}
 	}, [id, dispatch])
 
-	console.log(flight)
 	const childrenElem =
 		(<FlightInfo
 			arrivPark={flight.arrivalAutopark}

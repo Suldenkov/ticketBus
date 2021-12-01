@@ -1,6 +1,6 @@
 import React from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import MyButton from "../../components/Button/Button";
 import Ticket from "../../components/Ticket/Ticket";
 import { useQuery } from "../../hooks/useQuery";
@@ -13,7 +13,7 @@ interface TicketSignProps{
 
 const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 	let query = useQuery()
-	// const history = useHistory()
+	const history = useHistory()
 	let arr = Array<any>(Number(query.get('amount'))).fill({firstName: '', lastName: '', document: '', patronymic: '', birthday: '', gender: ''})
 	
 	const {control, register, handleSubmit,formState: { errors }} = useForm<any>({ defaultValues: {tickets: arr}});
@@ -25,13 +25,10 @@ const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 	const onSubmit: SubmitHandler<any> = (data) => {
 		const req = {...data, flight: query.get('flight'), seats: seats}
     TicketService.BuyTickets(req)
-		.then((data) => console.log(data))
-		.catch((error) => console.log(error))
+		// .then((data) => console.log(data))
+		// .catch((error) => console.log(error))
+		history.push('/')
   }
-	
-	// const onClickGoBack = () => {
-	// 	history.goBack()
-	// }
 	
 	return(
 		<div className="ticket_sign">
