@@ -7,7 +7,7 @@ export const fetchFlights = (param:searchFlights) => {
 	return async (dispatch: Dispatch<FlightAction>) => {
 		try {
 			dispatch({type: flightActionTypes.FETCH_FLIGHTS})
-			const response = await FlightService.fetchFlights(param) 
+			const response = await FlightService.fetchFlights(param)
 			dispatch({type: flightActionTypes.FETCH_FLIGHTS_SUCCES, payload: response.data})
 		} catch (error) {
 			dispatch({type: flightActionTypes.FETCH_FLIGHTS_ERROR, payload: 'Error'})

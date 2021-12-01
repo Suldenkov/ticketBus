@@ -7,23 +7,21 @@ from .models import Flight, ParkCar, Bus, Ticket
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.db.models import Q
 from django.db import transaction, IntegrityError
 
 
 class FlightViewSet(viewsets.ModelViewSet):
-	permission_classes_by_action = {'create': [AllowAny],
-									'list': [AllowAny],
-									'retrive': [AllowAny]}
-	serializer_class = FlightCreateSerializer
+	permission_classes_by_action = {'create': [IsAdminUser, ],
+									'list': [AllowAny, ],
+									'retrive': [AllowAny, ]}
 
 	def list(self, request):
 		serializer = FlightListSerializer(self.get_queryset(), many=True)
 		return Response(serializer.data)
 
 	def get_queryset(self):
-
 		queryset = Flight.objects.all()
 		departureAutopark = self.request.query_params.get('departure')
 		arrivalAutopark = self.request.query_params.get('arrival')
@@ -72,6 +70,7 @@ class FlightViewSet(viewsets.ModelViewSet):
 
 class ParkCarViewSet(viewsets.ModelViewSet):
 	permission_classes_by_action = {'list': [AllowAny], }
+
 
 	def list(self, request):
 		queryset = self.get_queryset()
