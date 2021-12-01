@@ -23,7 +23,7 @@ const History: React.FC = () => {
 					departurecity={elem.departure}
 					status={400} duration='5:00'
 					amount='500'
-					className="history_elem"/>
+					className="history_block__element"/>
 				</div>)
 				:
 				<span>У вас нет завершенных поездок</span>	

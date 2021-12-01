@@ -4,7 +4,7 @@ import lockImg from "./../../../imgs/plus_reliability.svg";
 import cardImg from "./../../../imgs/plus_security.svg";
 import ticketImg from "./../../../imgs/plus_web.svg";
 import Plus from "./Plus/Plus";
-import style from './Main.module.scss';
+import './Main.scss';
 
 const Main:React.FC = () => {
 	const content = [
@@ -15,7 +15,7 @@ const Main:React.FC = () => {
 	]
 
 	return (
-		<main className={style.main}>
+		<main className="main">
 			{
 				content.map((elem) => <Plus key={elem.id} img={elem.img} content={elem.content} title={elem.title}/>)
 			}

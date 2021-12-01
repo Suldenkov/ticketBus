@@ -47,7 +47,7 @@ const BusScheme: React.FC<BusSchemeProps> = ({countPlace, busyPlaces, selectPlac
 				<div className="bus_seats">
 					{
 						Array.from(Array(countPlace).keys()).map((elem) => {
-							const classSeat:string = busyPlaces.includes(elem + 1) ? 'bus_seat_busy' : ''
+							const classSeat:string = busyPlaces.includes(elem + 1) ? 'bus_seat__busy' : ''
 							return (
 								<BusSeat 
 									key={elem} 

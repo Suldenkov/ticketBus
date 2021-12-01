@@ -10,15 +10,15 @@
 	
 	&_block{
 		width: 75%;
-	}
 
-	&_elem{
-		pointer-events: none;
-		opacity: 0.5;
-		background: #CCC;
-
-		button{
-			display: none;
+		&__element{
+			pointer-events: none;
+			opacity: 0.5;
+			background: #CCC;
+	
+			button{
+				display: none;
+			}
 		}
 	}
 }

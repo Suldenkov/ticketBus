@@ -11,12 +11,12 @@ const Navbar: React.FC<NavbarProps> = ({routs}) => {
 	return (
 		<nav className="navbar">
 			<Header theme='dark'/>
-			<div className="navbar_link">
+			<div className="navbar__links">
 				<ul>
 					{
 						routs.map((elem, index) => 
 						<NavLink key={index} to={elem.route} 
-							className={isActive => "nav_link" + (isActive ? " nav_link_selected" : "")}>
+							className={isActive => "navbar__link" + (isActive ? " navbar__link__selected" : "")}>
 							{elem.name}
 						</NavLink>
 						)

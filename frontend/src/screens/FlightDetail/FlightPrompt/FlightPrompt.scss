@@ -1,0 +1,29 @@
+.flight_prompt{
+	padding: 1.5em 2em;
+	width: 53em;
+	margin-top: 3em;
+	box-shadow: rgba(0, 0, 0 , 0.15) 0px 2px 4px;
+	border-radius: 6px;
+	background-color: white;
+	
+	h3{
+		font-size: 1.5rem;
+		margin-bottom: 0.3em;
+
+		span{
+			font-size: 1.1rem;
+			display: inline-block;
+			margin-left: 0.5em;
+		}
+	}
+	span{
+		font-size: 1rem;
+		display: block;
+	}
+
+	&__button{
+		font-size: 1rem;
+		margin-top: 1em;
+		padding: 0.6em;
+	}
+}

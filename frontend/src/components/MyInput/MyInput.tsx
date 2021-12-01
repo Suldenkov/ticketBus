@@ -14,7 +14,7 @@ interface MyInputProps{
 const MyInput = forwardRef<any, MyInputProps>(({placeholder, value, onChange, name, focusControl, className, type='text'}, ref) =>{
 
 	return (
-		<div className={className ? `my_input_container ${className}` : 'my_input_container'}>
+		<div className={className ? `input__container ${className}` : 'input__container'}>
 			<input
 			value={value}
 			name={name}
@@ -22,7 +22,7 @@ const MyInput = forwardRef<any, MyInputProps>(({placeholder, value, onChange, na
 			onBlur={focusControl}
 			onChange={onChange}
 			placeholder={placeholder}
-			className="my_input"
+			className="input"
 			type={type}
 			autoComplete="off"
 			ref={ref}

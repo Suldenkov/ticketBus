@@ -1,4 +1,4 @@
-.my_input{
+.input{
 	border-radius: 6px;
 	padding: 0.6em 3.2em 0.7em 0.9em;
 	font-size: 0.9rem;
@@ -12,7 +12,7 @@
 		border:1px solid rgb(133, 133, 133);
 	}
 
-	&_container{
+	&__container{
 		position: relative;
 	}
 }

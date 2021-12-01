@@ -22,10 +22,10 @@ const FlightsForm: React.FC = () => {
 	return (
 		<div className="flights">
 			<Header theme='dark'/>
-			<div className="flights_top">
+			<div className="flights__top">
 				<FlightsSearch/>
 			</div>
-			<div className="flights_form">
+			<div className="flights__form">
 				<FlightsFilter 
 				selectedSort={selectedSort}
 				onChange={sortFlights}/>

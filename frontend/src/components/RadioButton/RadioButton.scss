@@ -6,29 +6,29 @@
 	display: flex;
 	align-items: center;
 	
-	&_label{
+	&__label{
 		width: 2em;
 		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content:center;
 		cursor: pointer;
+
+		&_active{
+			background-color: rgb(27, 107, 211);
+			color: white;
+		}
 	}
 
-	&_active{
-		background-color: rgb(27, 107, 211);
-		color: white;
-	}
-
-	&_input{
+	&__input{
 		display: none;
 	}
-}
 
-.radio_element{
-	height: 100%;
-	
-	&:last-child{
-		border-left: 1px solid rgb(177, 177, 177);
+	&_element{
+		height: 100%;
+		
+		&:last-child{
+			border-left: 1px solid rgb(177, 177, 177);
+		}
 	}
 }

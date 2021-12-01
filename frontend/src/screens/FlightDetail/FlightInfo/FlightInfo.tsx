@@ -22,8 +22,8 @@ const FlightInfo:React.FC<FlightInfoProps> = ({scheduledArrival, scheduledDepart
 		<div className="flight_info">
 			{
 				flightInfoElements.map(({id, title, subTitle, content}) => 
-						<div key={id} className="flight_info_field">
-							<span className="flight_info_title">{title}</span>
+						<div key={id} className="flight_info__field">
+							<span className="flight_info__title">{title}</span>
 							{
 								id === flightInfoElements.length
 								? 

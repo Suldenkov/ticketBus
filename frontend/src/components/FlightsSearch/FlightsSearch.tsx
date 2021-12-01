@@ -37,21 +37,9 @@ const FlightsSearch: React.FC = (props) => {
 		dispatch(fetchParkCar(''))
 	}, [dispatch])
 
-	// let mas = parks.map((elem, index) => {
-	// 	return ({label: elem.city, value: index})
-	// })
-	// const customStyles = {
-	// 	dropdownIndicator: () => ({
-	// 		display: 'none',
-	// 	}),
-	// 	indicatorSeparator: () => ({
-	// 		display: 'none',
-	// 	}),
-	// }
 
 	return (
 		<form className="flights_search">
-			{/* <Select className="cont" options={mas} styles={customStyles} isClearable={true} placeholder="Октуда"/> */}
 			<SearchInput
 				value={searchParam.departure}
 				placeholder="Откуда"
@@ -73,8 +61,7 @@ const FlightsSearch: React.FC = (props) => {
 				<Prompt/>
 			</SearchInput>
 			<Calendar setStartDate={setStartDate} startDate={startDate}/>
-			<MyButton onClick={send} name='Найти билет' className="flights_search_component"/>
-			{/* <MyInput placeholder="1 пс"/> */}
+			<MyButton onClick={send} name='Найти билет' className="flights_search__button"/>
 		</form>
 	)
 } 

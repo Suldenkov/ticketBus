@@ -8,7 +8,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 
-	&_title{
+	&__title{
 		text-align: left;
 		margin-bottom: 2.5em;
 
@@ -19,7 +19,7 @@
 		}
 	}
 
-	&_content{
+	&__content{
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
@@ -31,14 +31,14 @@
 		border-radius: 6px;
 		padding: 2em 3em 2em 3em;
 
-		&_about{
+		&__about{
 			font-size: 1.1rem;
 			line-height: 1.4em;
 			width: 20em;
 		}
 	}
 
-	&_input{
+	&__input{
 		font-size: 1.6rem;
 		width: 12em;
 		height: 1.55em;
@@ -52,17 +52,17 @@
 		// padding-top: 5em;
 		font-size: 0.5rem;
 		
-		&_title{
+		&__title{
 			h3{
 				font-size: 1.5rem;
 			}
 		}
 
-		&_info_about{
+		&_info__about{
 			font-size: 1rem;
 		}
 
-		&_input{
+		&__input{
 			font-size: 1.6rem;
 			width: 11em;
 			height: 1.45em;

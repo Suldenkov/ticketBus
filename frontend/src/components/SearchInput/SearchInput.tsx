@@ -31,7 +31,6 @@ const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...p
 		}
 	}
 
-
 	return (
 		<div className="search_input_container" onClick={onClickItem}>
 			<MyInput {...props} focusControl={focusControl} className="search_input"/>

@@ -29,12 +29,12 @@ const FlightDetail:React.FC<FlightDetailProps> = ({path, selectPlace, setSelectP
 
 	return (
 		<div className="flight_detail">
-			<div className="flight_detail_header">
+			<div className="flight_detail__header">
 					<span onClick={onClickGoBack}><span className="arrow">&#10140;</span>Go back</span>
 			</div>
-			<div className="flight_content">
+			<div className="flight_detail__content">
 				<div className="bus_container">
-					<div className="bus_container_title">
+					<div className="bus_container__title">
 						<h3>Выберите место на схеме автобуса</h3>
 					</div>
 					<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace} selectPlace={selectPlace}/>

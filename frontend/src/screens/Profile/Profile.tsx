@@ -24,29 +24,29 @@ const Profile: React.FC = () => {
 			<h3>Loading</h3>
 			:
 			<div className="profile">
-				<div className="profile_content">
-					<div className="profile_card">
-						<div className="profile_title">
+				<div className="profile__content">
+					<div className="profile__card">
+						<div className="profile__title">
 							<h3>Контактная информация</h3>	
 						</div>
 						<div className="profile_info">
-							<div className="profile_info_about">
+							<div className="profile_info__about">
 								<span>Используется для отправки электронного биллета, а также способ связи в случае отмены или изменения деталей поездки</span>
 							</div>
-							<MyInput placeholder='email' value={user.data.email} name='email' type='email' onChange={onChange} className='profile_input'/>
+							<MyInput placeholder='email' value={user.data.email} name='email' type='email' onChange={onChange} className='profile__input'/>
 							{/* <MyInput placeholder='Phone' value={user.data.phone} name='phone' onChange={onChange} type='phone' className='profile_input'/> */}
 						</div>
 					</div>
-					<div className="profile_card">
-						<div className="profile_title">
+					<div className="profile__card">
+						<div className="profile__title">
 									<h3>Личные данные</h3>
 						</div>
 						<div className="profile_info">	
-							<div className="profile_info_about">
+							<div className="profile_info__about">
 								<span>Используются как ваши данные при покупке биллета</span>
 							</div>
 							{/* <MyInput placeholder='First Name' value={user.firstName} name='firstName' onChange={onChange} className='profile_input'/> */}
-							<MyInput placeholder='Last Name' value={user.data.last_name} name='last_name' onChange={onChange} className='profile_input'/>
+							<MyInput placeholder='Last Name' value={user.data.last_name} name='last_name' onChange={onChange} className='profile__input'/>
 						</div>
 					</div>
 					<button onClick={onClik}>Сохранить</button>

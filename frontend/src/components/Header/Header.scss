@@ -5,7 +5,7 @@
 	align-items: center;
 	justify-content: space-around;
 
-	&_info{
+	&__info{
 		display: flex;
 		align-items: center;
 		width: 9.05em;
@@ -34,15 +34,11 @@
 			}
 		}
 	}
-}
 
-.logo{
-	width: 9em;
-	cursor: pointer;
-}
-
-.link{
-	text-decoration: none;
+	&__logo{
+		width: 9em;
+		cursor: pointer;
+	}
 }
 
 .dark{

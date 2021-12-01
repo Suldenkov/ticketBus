@@ -24,9 +24,9 @@ const Header:React.FC<HeaderProps> = ({setVisible = null, theme = 'light'}) => {
 	return (
 		<header className="header">
 			<Link to='/'>
-				<img className="logo" src={theme === 'dark' ? darkImg : lightImg} alt="" />
+				<img className="header__logo" src={theme === 'dark' ? darkImg : lightImg} alt="" />
 			</Link>
-			<div className={`header_info ${theme}`} onClick={changeEventClik}>
+			<div className={`header__info ${theme}`} onClick={changeEventClik}>
 				{
 					user.isAuth
 					?
