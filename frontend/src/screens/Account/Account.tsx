@@ -5,7 +5,7 @@ import History from "../History/History";
 import "./Account.scss";
 import Navbar  from "./../../components/Navbar/Navbar";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
-import Loader from "../../components/Loader/Loader";
+import Loader from "../../components/Loader/Loader";;
 
 const Account: React.FC = () => {
 	let { path } = useRouteMatch();
@@ -17,24 +17,21 @@ const Account: React.FC = () => {
 	]
 
 	return(
-		loading?
-			<Loader/>
-			:
-			user.isAuth?
-				<div className="account">
-						<Navbar routs={route}/>
-						<Switch>
-							<Route exact path={`${path}/profile`}>
-								<Profile/>
-							</Route>
-							<Route exact path={`${path}/history`}>
-								<History/>
-							</Route>
-							<Redirect to={`${path}/profile`}/>
-						</Switch>
-				</div>
-			:
-			<h3>404</h3>
+		loading || user.data === null?
+		<Loader/>
+		:
+		<div className="account">
+				<Navbar routs={route}/>
+				<Switch>
+					<Route exact path={`${path}/profile`}>
+						<Profile/>
+					</Route>
+					<Route exact path={`${path}/history`}>
+						<History/>
+					</Route>
+					<Redirect to={`${path}/profile`}/>
+				</Switch>
+		</div>
 	)
 }
 

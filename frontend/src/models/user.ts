@@ -7,7 +7,7 @@ export enum authActionTypes {
 export interface authState {
 	user: {
 		data: any;
-		isAuth: Boolean;
+		isAuth: boolean;
 	};
 	loading: boolean;
 	error: null | string;

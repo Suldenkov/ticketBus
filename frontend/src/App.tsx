@@ -12,8 +12,9 @@ const App : React.FC = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (localStorage.getItem('access'))
+    if (localStorage.getItem('access')){
       checkAuth(dispatch)
+    }
   }, [dispatch])
   
   return (
