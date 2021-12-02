@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import './MyInput.scss';
 
 interface MyInputProps{
-	placeholder: string;
+	placeholder?: string;
 	value?:string;
 	onChange?: any;
 	name?: string;
