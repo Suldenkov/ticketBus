@@ -19,10 +19,15 @@
 	&_input{
 		width: 33%;
 		margin-right: 1.5em;
+
+		&__error{
+			color: #ff4169;
+			width: 98%;
+		}
 	}
 
 	&_radiobutton{
 		margin-right: 1.5em;
-		height: 100%;
+		height: 2.7em;
 	}
 }

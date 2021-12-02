@@ -7,7 +7,7 @@ interface FormInputProps{
 };
 
 
-const Wraper: React.FC<FormInputProps> = ({label, children, className}) => (
+const Wraper: React.FC<FormInputProps> = ({label, children, className=''}) => (
   <div className={`form_input ${className}`}>
     <label className="label">{label}</label>
 		{
