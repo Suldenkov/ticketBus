@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import Loader from "../../components/Loader/Loader";
 import MyInput from "../../components/MyInput/MyInput";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { authActionTypes } from "../../models/user";
@@ -21,7 +22,7 @@ const Profile: React.FC = () => {
 
 	return (
 			loading?
-			<h3>Loading</h3>
+			<Loader/>
 			:
 			<div className="profile">
 				<div className="profile__content">
