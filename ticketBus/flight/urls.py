@@ -7,4 +7,5 @@ urlpatterns = [
 	path('create/', FlightViewSet.as_view({'post': 'create'})),
 	path('parkcar/view/list/', ParkCarViewSet.as_view({'get': 'list'})),
 	path('ticket/create/', TicketViewSet.as_view({'post': 'create'})),
+	path('ticket/<pk>/', TicketViewSet.as_view({'get': 'retrieve'})),
 ]

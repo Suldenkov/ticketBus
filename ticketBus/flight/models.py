@@ -33,6 +33,10 @@ class Flight(models.Model):
 	duration = models.DurationField(default=timedelta())
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 class Ticket(models.Model):
 	GENDER = (
@@ -47,3 +51,5 @@ class Ticket(models.Model):
 	birthday = models.DateField(default=timezone.now())
 	gender = models.CharField(max_length=20, choices=GENDER, default='')
 	seat_no = models.IntegerField()
+	qr_code = models.ImageField(upload_to='./qr_code', blank=True)
+

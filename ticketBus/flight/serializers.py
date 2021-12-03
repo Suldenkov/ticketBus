@@ -67,6 +67,3 @@ class TicketSerializer(serializers.ModelSerializer):
 		model = Ticket
 		fields = '__all__'
 
-	def create(self, validated_data):
-		return Ticket.objects.create(**validated_data)
-

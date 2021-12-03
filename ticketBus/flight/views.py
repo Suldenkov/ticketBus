@@ -71,7 +71,6 @@ class FlightViewSet(viewsets.ModelViewSet):
 class ParkCarViewSet(viewsets.ModelViewSet):
 	permission_classes_by_action = {'list': [AllowAny], }
 
-
 	def list(self, request):
 		queryset = self.get_queryset()
 		serializer = ParkCarSerializer(queryset, many=True)
@@ -85,11 +84,23 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		return queryset[:5]
 
 
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
+
 class TicketViewSet(viewsets.ModelViewSet):
-	permission_classes_by_action = {'list': [AllowAny], 'create': [AllowAny]}
+	permission_classes_by_action = {'list': [AllowAny], 'create': [AllowAny], 'retrieve': [AllowAny]}
+
+	def retrieve(self, request, pk=None):
+		queryset = Ticket.objects.all()
+		ticket = get_object_or_404(queryset, pk=pk)
+		serializer = TicketSerializer(ticket)
+		return Response(serializer.data)
 
 	def create(self, request, *args, **kwargs):
 		req = request.data
+		tickets = []
 		try:
 			with transaction.atomic():
 				for i in range(len(req['tickets'])):
@@ -98,7 +109,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 						raise IntegrityError
 					ticket = req['tickets'][i]
 					birthday = datetime.strptime(ticket['birthday'], "%d.%m.%Y").strftime('%Y-%m-%d')
-					Ticket.objects.create(
+					ticket = Ticket.objects.create(
 						firstName=ticket['firstName'],
 						lastName=ticket['lastName'],
 						patronymic=ticket['patronymic'],
@@ -107,6 +118,18 @@ class TicketViewSet(viewsets.ModelViewSet):
 						gender=ticket['gender'],
 						flight=Flight.objects.get(pk=int(req['flight'])),
 						seat_no=int(req['seats'][i]))
+					tickets.append(ticket)
 		except IntegrityError:
 			return Response({'code': 120})
+		for ticket in tickets:
+			qrcode_img = qrcode.make(f'?id={ticket.id}')
+			canvas = Image.new('RGB', (290, 290), 'white')
+			draw = ImageDraw.Draw(canvas)
+			canvas.paste(qrcode_img)
+			fname = f'qr_code-{ticket.id}.png'
+			buffer = BytesIO()
+			canvas.save(buffer, 'PNG')
+			ticket.qr_code.save(fname, File(buffer), save=False)
+			canvas.close()
+			ticket.save()
 		return Response({'code': 200})
