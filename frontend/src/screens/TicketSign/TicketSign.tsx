@@ -5,6 +5,8 @@ import MyButton from "../../components/Button/Button";
 import Ticket from "../../components/Ticket/Ticket";
 import { useQuery } from "../../hooks/useQuery";
 import TicketService from "../../services/ticket.service";
+import { setSnackbar } from "../../store/reducers/UIReduser";
+import {useDispatch} from 'react-redux';
 import './TicketSign.scss';
 
 interface TicketSignProps{
@@ -14,6 +16,7 @@ interface TicketSignProps{
 const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 	let query = useQuery()
 	const history = useHistory()
+	const dispatch = useDispatch()
 	let arr = Array<any>(Number(query.get('amount'))).fill({firstName: '', lastName: '', document: '', patronymic: '', birthday: '', gender: ''})
 	
 	const {control, register, handleSubmit,formState: { errors }} = useForm<any>({ defaultValues: {tickets: arr}});
@@ -25,9 +28,15 @@ const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 	const onSubmit: SubmitHandler<any> = (data) => {
 		const req = {...data, flight: query.get('flight'), seats: seats}
     TicketService.BuyTickets(req)
-		// .then((data) => console.log(data))
-		// .catch((error) => console.log(error))
-		history.push('/')
+		.then((data) => {
+			const param = {snackbarOpen: true, snackbarMessage: 'Покупка биллета: Успешно', snackbarType: 'success'}
+    	dispatch(setSnackbar(param))
+			history.push('/')
+		})
+		.catch((error) => {
+			const param = {snackbarOpen: true, snackbarMessage: error, snackbarType: 'error'}
+    	dispatch(setSnackbar(param))
+		})
   }
 	
 	return(

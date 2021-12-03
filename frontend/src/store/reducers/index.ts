@@ -1,3 +1,4 @@
+import { uiReduser } from './UIReduser';
 import { authReduser } from './authReduser';
 
 import { ParkCarReduser } from './ParkCarReduser';
@@ -11,6 +12,7 @@ export const rootReduser = combineReducers({
 	flight: flightDetailReducer,
 	park: ParkCarReduser,
 	auth: authReduser,
+	ui: uiReduser,
 })
 
 export type RootState = ReturnType<typeof rootReduser>

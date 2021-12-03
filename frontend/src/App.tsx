@@ -7,6 +7,7 @@ import Account from './screens/Account/Account';
 import {useDispatch} from 'react-redux';
 import { checkAuth } from './services/auth.service';
 import Purchase from './screens/Purchase/Purchase';
+import SnackBar from './components/Snackbar/Snackbar';
 
 const App : React.FC = () => {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const App : React.FC = () => {
           <Purchase/>
         </Route>
       </Switch>
+      <SnackBar/>
     </div>
   );
 }
