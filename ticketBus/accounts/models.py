@@ -1,53 +1,90 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _, gettext_lazy as l
 
 
 class CustomUserManager(BaseUserManager):
-	"""Define a model manager for User model with no username field."""
+	def create_superuser(self, email, password, **other_fields):
 
-	def _create_user(self, email, password=None, **extra_fields):
-		"""Create and save a User with the given email and password."""
+		other_fields.setdefault('is_staff', True)
+		other_fields.setdefault('is_superuser', True)
+		other_fields.setdefault('is_active', True)
+
+		if other_fields.get('is_staff') is not True:
+			raise ValueError(
+				'Superuser must be assigned to is_staff=True.')
+		if other_fields.get('is_superuser') is not True:
+			raise ValueError(
+				'Superuser must be assigned to is_superuser=True.')
+
+		return self.create_user(email, password, **other_fields)
+
+	def create_user(self, email, password, **other_fields):
+
 		if not email:
-			raise ValueError('The given email must be set')
+			raise ValueError(_('You must provide an email address'))
+
 		email = self.normalize_email(email)
-		user = self.model(email=email, phone=phone, **extra_fields)
+		user = self.model(email=email, **other_fields)
 		user.set_password(password)
-		user.save(using=self._db)
+		user.save()
 		return user
-
-	def create_user(self, email, password=None, **extra_fields):
-		extra_fields.setdefault('is_staff', False)
-		extra_fields.setdefault('is_superuser', False)
-		return self._create_user(email, password, **extra_fields)
-
-	def create_superuser(self, email, password=None, **extra_fields):
-		"""Create and save a SuperUser with the given email and password."""
-		extra_fields.setdefault('is_staff', True)
-		extra_fields.setdefault('is_superuser', True)
-
-		if extra_fields.get('is_staff') is not True:
-			raise ValueError('Superuser must have is_staff=True.')
-		if extra_fields.get('is_superuser') is not True:
-			raise ValueError('Superuser must have is_superuser=True.')
-
-		return self._create_user(email, password, **extra_fields)
 
 
 class CustomUser(AbstractUser):
+	class Types(models.TextChoices):
+		PASSENGER = 'Passenger', 'PASSENGER'
+		ADMINISTRATOR = 'Administrator', 'ADMINISTRATOR'
+		INSPECTOR = 'Inspector', 'INSPECTOR'
+
+	default_type = Types.PASSENGER
+	type = models.CharField(l('Type'), max_length=50, choices=Types.choices, default=default_type)
 	username = None
 	email = models.EmailField(_('email address'), unique=True)
-
+	patronymic = models.CharField(l('patronymic'), max_length=150, blank=True)
+	document = models.CharField(l('document'), max_length=150, blank=True)
+	phone = models.CharField(l('phone'), max_length=150, blank=True)
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []
 
 	objects = CustomUserManager()
 
 
-class Passenger(models.Model):
-	level = models.IntegerField(verbose_name='level')
-	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+class PassengerManager(models.Manager):
+
+	def get_queryset(self, *args, **kwargs):
+		return super().get_queryset(*args, **kwargs).filter(type=CustomUser.Types.PASSENGER)
 
 
-class Administrator(models.Model):
-	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+class Passenger(CustomUser):
+	objects = PassengerManager()
+
+	class Meta:
+		proxy = True
+
+
+class AdministratorManager(models.Manager):
+	def get_queryset(self, *args, **kwargs):
+		return super().get_queryset(*args, **kwargs).filter(type=CustomUser.Types.ADMINISTRATOR)
+
+
+
+class Administrator(CustomUser):
+	objects = AdministratorManager()
+
+	class Meta:
+		proxy = True
+
+
+class InspectorManager(models.Manager):
+	def get_queryset(self, *args, **kwargs):
+		return super().get_queryset(*args, **kwargs).filter(type=CustomUser.Types.INSPECTOR)
+
+
+class Inspector(CustomUser):
+	objects = InspectorManager()
+
+	class Meta:
+		proxy = True

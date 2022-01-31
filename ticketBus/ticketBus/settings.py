@@ -28,6 +28,8 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
 	'http://localhost:3000',
+	'http://192.168.1.2:19000',
+	'http://localhost:19002',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

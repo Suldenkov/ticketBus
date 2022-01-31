@@ -8,17 +8,19 @@ class ParkCarSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 
+class BusSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Bus
+		fields = '__all__'
+
+
 class FlightListSerializer(serializers.ModelSerializer):
 	departureAutopark = ParkCarSerializer()
 	arrivalAutopark = ParkCarSerializer()
-
-	##test##
-	scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-	scheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	# scheduledDeparture = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	# scheduledArrival = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	duration = serializers.SerializerMethodField()
 	amount = serializers.DecimalField(max_digits=10, decimal_places=0)
-
-	#######
 
 	class Meta:
 		model = Flight
@@ -31,12 +33,6 @@ class FlightListSerializer(serializers.ModelSerializer):
 		hours, minutes = divmod(obj.duration.total_seconds(), 3600)
 		minutes = int(divmod(minutes, 60)[0])
 		return str(int(hours)) + 'ч ' + str(minutes) + 'м'
-
-
-class BusSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Bus
-		fields = '__all__'
 
 
 class FlightDetailSerializer(serializers.ModelSerializer):
@@ -65,5 +61,10 @@ class TicketSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Ticket
-		fields = '__all__'
+		fields = ['id', 'document', 'gender', 'firstName', 'lastName', 'patronymic', 'seat_no', 'birthday']
 
+
+class TicketMinSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Ticket
+		fields = ['id', 'seat_no', 'is_checked']

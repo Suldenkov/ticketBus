@@ -2,7 +2,7 @@ from datetime import timedelta
 from django.utils import timezone
 
 from django.db import models
-from accounts.models import Passenger
+from accounts.models import Passenger, Inspector
 from django.contrib.auth.models import User
 
 
@@ -32,11 +32,8 @@ class Flight(models.Model):
 	bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
 	duration = models.DurationField(default=timedelta())
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
+	inspector = models.ForeignKey(Inspector, on_delete=models.CASCADE, blank=True, null=True)
 
-import qrcode
-from io import BytesIO
-from django.core.files import File
-from PIL import Image, ImageDraw
 
 class Ticket(models.Model):
 	GENDER = (
@@ -51,5 +48,6 @@ class Ticket(models.Model):
 	birthday = models.DateField(default=timezone.now())
 	gender = models.CharField(max_length=20, choices=GENDER, default='')
 	seat_no = models.IntegerField()
+	is_checked = models.BooleanField(default=False)
 	qr_code = models.ImageField(upload_to='./qr_code', blank=True)
 

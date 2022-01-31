@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Passenger
+from .models import Passenger, Administrator, Inspector
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
@@ -28,3 +28,5 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(get_user_model(), CustomUserAdmin)
 admin.site.register(Passenger)
+admin.site.register(Administrator)
+admin.site.register(Inspector)

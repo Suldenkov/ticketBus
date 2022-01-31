@@ -1,15 +1,21 @@
 from datetime import datetime
 
+from django.http import HttpResponseNotFound
 from .serializers import FlightListSerializer, \
 	FlightDetailSerializer, FlightCreateSerializer, \
-	ParkCarSerializer, TicketSerializer
+	ParkCarSerializer, TicketSerializer, TicketMinSerializer
 from .models import Flight, ParkCar, Bus, Ticket
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.db.models import Q
 from django.db import transaction, IntegrityError
+
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 
 class FlightViewSet(viewsets.ModelViewSet):
@@ -21,28 +27,13 @@ class FlightViewSet(viewsets.ModelViewSet):
 		serializer = FlightListSerializer(self.get_queryset(), many=True)
 		return Response(serializer.data)
 
-	def get_queryset(self):
-		queryset = Flight.objects.all()
-		departureAutopark = self.request.query_params.get('departure')
-		arrivalAutopark = self.request.query_params.get('arrival')
-		day = self.request.query_params.get('date')
-		if departureAutopark is not None:
-			queryset = queryset.filter(departureAutopark__city=departureAutopark)
-		if arrivalAutopark is not None:
-			queryset = queryset.filter(arrivalAutopark__city=arrivalAutopark)
-		if day is not None:
-			queryset = queryset.filter(scheduledDeparture__contains=day)
-		return queryset
-
 	def retrieve(self, request, pk=None):
 		queryset = Flight.objects.all()
 		flight = get_object_or_404(queryset, pk=pk)
 		obj = {'countPlace': flight.bus.countPlace}
 		queryset = Ticket.objects.filter(flight=pk)
-		mas = []
-		for seats in queryset:
-			mas.append(seats.seat_no)
-		obj['busyPlaces'] = mas
+		res = TicketMinSerializer(queryset, many=True)
+		obj['busyPlaces'] = res.data
 		serializer = FlightDetailSerializer(flight)
 		obj.update(serializer.data)
 		return Response(obj)
@@ -67,6 +58,19 @@ class FlightViewSet(viewsets.ModelViewSet):
 			return Response(serializer.data)
 		return Response({'status': 400, 'text': 'incorrect parameter'})
 
+	def get_queryset(self):
+		queryset = Flight.objects.all()
+		departureAutopark = self.request.query_params.get('departure')
+		arrivalAutopark = self.request.query_params.get('arrival')
+		day = self.request.query_params.get('date')
+		if departureAutopark is not None:
+			queryset = queryset.filter(departureAutopark__city=departureAutopark)
+		if arrivalAutopark is not None:
+			queryset = queryset.filter(arrivalAutopark__city=arrivalAutopark)
+		if day is not None:
+			queryset = queryset.filter(scheduledDeparture__contains=day)
+		return queryset
+
 
 class ParkCarViewSet(viewsets.ModelViewSet):
 	permission_classes_by_action = {'list': [AllowAny], }
@@ -84,17 +88,17 @@ class ParkCarViewSet(viewsets.ModelViewSet):
 		return queryset[:5]
 
 
-import qrcode
-from io import BytesIO
-from django.core.files import File
-from PIL import Image, ImageDraw
-
 class TicketViewSet(viewsets.ModelViewSet):
 	permission_classes_by_action = {'list': [AllowAny], 'create': [AllowAny], 'retrieve': [AllowAny]}
 
 	def retrieve(self, request, pk=None):
 		queryset = Ticket.objects.all()
 		ticket = get_object_or_404(queryset, pk=pk)
+		query = request.query_params.get('flight')
+		if query is None:
+			return HttpResponseNotFound('Page not found')
+		if str(ticket.flight.id) != query:
+			return Response({'status': 'Этот биллет не подходит'})
 		serializer = TicketSerializer(ticket)
 		return Response(serializer.data)
 
@@ -108,6 +112,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 					if len(queryset) > 0:
 						raise IntegrityError
 					ticket = req['tickets'][i]
+					flight = int(req['flight'])
 					birthday = datetime.strptime(ticket['birthday'], "%d.%m.%Y").strftime('%Y-%m-%d')
 					ticket = Ticket.objects.create(
 						firstName=ticket['firstName'],
@@ -116,13 +121,13 @@ class TicketViewSet(viewsets.ModelViewSet):
 						document=ticket['document'],
 						birthday=birthday,
 						gender=ticket['gender'],
-						flight=Flight.objects.get(pk=int(req['flight'])),
+						flight=Flight.objects.get(pk=flight),
 						seat_no=int(req['seats'][i]))
 					tickets.append(ticket)
 		except IntegrityError:
 			return Response({'code': 120})
 		for ticket in tickets:
-			qrcode_img = qrcode.make(f'?id={ticket.id}')
+			qrcode_img = qrcode.make(f'/{ticket.id}?flight={flight}')
 			canvas = Image.new('RGB', (290, 290), 'white')
 			draw = ImageDraw.Draw(canvas)
 			canvas.paste(qrcode_img)
@@ -133,3 +138,18 @@ class TicketViewSet(viewsets.ModelViewSet):
 			canvas.close()
 			ticket.save()
 		return Response({'code': 200})
+
+
+class TicketSeatView(generics.RetrieveUpdateAPIView):
+	serializer_class = TicketMinSerializer
+	queryset = Ticket
+
+
+class MobileFlightViewSet(viewsets.ModelViewSet):
+	permission_classes_by_action = {'list': [AllowAny, ],
+									'retrive': [AllowAny, ]}
+
+	def list(self, request, *args, **kwargs):
+		queryset = Flight.objects.filter(inspector=request.user.pk).order_by('scheduledDeparture')
+		serializer = FlightListSerializer(queryset, many=True)
+		return Response(serializer.data)

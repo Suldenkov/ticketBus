@@ -1,6 +1,8 @@
+import json
+
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-from accounts.serializers import CookieTokenRefreshSerializer, PassengerUserSerializer
+from accounts.serializers import CookieTokenRefreshSerializer, PassengerUserSerializer, InspectorSerializer, UserSer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -38,3 +40,33 @@ class Extractor(generics.RetrieveUpdateAPIView):
 
 	def get_object(self):
 		return self.request.user
+
+
+class UserView(generics.RetrieveUpdateAPIView):
+	permission_classes = (IsAuthenticated,)
+	serializer_class = UserSer
+
+	def get_object(self):
+		return self.request.user
+
+
+
+class InspectorRegister(generics.CreateAPIView):
+	serializer_class = InspectorSerializer
+
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import exceptions
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+	def validate(self, attrs):
+		data = super().validate(attrs)
+		if self.user.type != 'Inspector':
+			raise exceptions.AuthenticationFailed()
+		return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+	serializer_class = MyTokenObtainPairSerializer
