@@ -14,6 +14,8 @@ export const authReduser = (state = initialState, action: authAction): authState
 			return {loading: false, error: null, user: {data:action.payload, isAuth: true} }
 		case authActionTypes.FETCH_AUTH_ERROR:
 			return {loading: false, error: action.payload, user: {data:{}, isAuth: false}}
+		case authActionTypes.RESET_AUTH:
+			return initialState
 		default:
 			return state
 	}

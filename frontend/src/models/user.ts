@@ -2,6 +2,7 @@ export enum authActionTypes {
 	FETCH_AUTH = 'FETCH_AUTH',
 	FETCH_AUTH_SUCCES = 'FETCH_AUTH_SUCCES',
 	FETCH_AUTH_ERROR = 'FETCH_AUTH_ERROR',
+	RESET_AUTH = 'RESET_AUTH'
 }
 
 export interface authState {
@@ -27,6 +28,10 @@ interface FetchAuthErrorAction {
 	payload: string;
 }
 
+interface ReasetAuth{
+	type: authActionTypes.RESET_AUTH
+}
+
 export interface UserResponse{
 	username: string;
 	last_name: string;
@@ -34,4 +39,4 @@ export interface UserResponse{
 	email: string;
 }
 
-export type authAction = FetchAuthAction | FetchAuthSuccesAction | FetchAuthErrorAction;
+export type authAction = FetchAuthAction | FetchAuthSuccesAction | FetchAuthErrorAction | ReasetAuth

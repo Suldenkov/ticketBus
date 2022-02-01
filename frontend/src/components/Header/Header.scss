@@ -5,13 +5,46 @@
 	align-items: center;
 	justify-content: space-around;
 
+	&__user_info{
+		width: 11em;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	&__exit{
+		height: 1.5em;
+		stroke: rgb(255, 255, 255);
+		stroke-width: 2.5;
+		cursor: pointer;
+		transition: all 0.5s ease;
+
+		svg{
+			width: 1.5em;
+			height: 1.5em;
+		}
+
+		&:hover{
+			stroke: darken($color: rgb(255, 255, 255), $amount: 25%);
+		}
+
+		&_dark{
+			stroke: #df0e0e;
+
+			&:hover{
+				stroke: lighten($color: #df0e0e, $amount: 25%);
+			}
+		}
+
+	}
+
 	&__info{
 		display: flex;
 		align-items: center;
-		width: 9.05em;
 		color:white;
 		font-size: 1.1rem;
 		line-height: 1.1rem;
+		margin-right: 0.7em;
 		cursor: pointer;
 		transition: all 0.5s ease;
 	
@@ -55,6 +88,13 @@
 		svg{
 			fill: rgb(201, 69, 69);
 		}
+	}
+}
+
+.user_name{
+	svg{
+		font-size: 15;
+		cursor: pointer;
 	}
 }
 
