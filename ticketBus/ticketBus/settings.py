@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +46,7 @@ CELERY_TASK_SERIALIZER = 'json'
 # Application definition
 
 INSTALLED_APPS = [
+	# 'send_email.apps.SendEmailConfig',
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -175,3 +177,10 @@ SIMPLE_JWT = {
 	'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
 	'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
 }
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')

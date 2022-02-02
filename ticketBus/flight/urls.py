@@ -10,4 +10,5 @@ urlpatterns = [
 	path('ticket/<pk>/', TicketViewSet.as_view({'get': 'retrieve'})),
 	path('ticket/update/<pk>/', TicketSeatView.as_view()),
 	path('mobile/flights/', MobileFlightViewSet.as_view({'get': 'list'})),
+	# path('send/', Mail.as_view({'get': 'retrieve'}))
 ]

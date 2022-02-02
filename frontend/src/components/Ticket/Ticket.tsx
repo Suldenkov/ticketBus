@@ -31,12 +31,12 @@ const Ticket:React.FC<TicketProps> = ({id, register, errors}) => {
 				<div className="ticket__field">
 
 					<Wraper label="Фамилия" className="ticket_input">
-						<MyInput {...register(`tickets.${id}.firstName`, { required: `Укажите имя`})}/>
-						{err?.firstName && <p className='ticket_input__error'>{err.firstName.message}</p>}
-					</Wraper>
-					<Wraper label="Имя" className="ticket_input">
 						<MyInput {...register(`tickets.${id}.lastName`, { required: `Укажите имя`})}/>
 						{err?.lastName && <p className='ticket_input__error'>{err.lastName.message}</p>}
+					</Wraper>
+					<Wraper label="Имя" className="ticket_input">
+						<MyInput {...register(`tickets.${id}.firstName`, { required: `Укажите имя`})}/>
+						{err?.firstName && <p className='ticket_input__error'>{err.firstName.message}</p>}
 					</Wraper>
 					<Wraper label="Отчество" className="ticket_input">
 						<MyInput {...register(`tickets.${id}.patronymic`, {required: `Укажите отчество`})}/>
