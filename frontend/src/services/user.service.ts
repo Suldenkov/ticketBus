@@ -11,4 +11,8 @@ export default class UserService {
 		delete data.passenger
 		return $axios.patch('http://localhost:8000/api/v1/accounts/passenger/me/', data)
 	}
+
+	static registerUser(data:any): any{
+		return $axios.post('http://localhost:8000/auth/users/', data)
+	}
 }

@@ -1,0 +1,26 @@
+.tab{
+	// width: 25ch;
+	// width: 100px;
+
+	&_list{
+		display: flex;
+		list-style: none;
+	}
+
+	&_title{
+		
+		font-size: 1.2rem;
+		background-color: rgb(189, 199, 199);
+		box-sizing: border-box;
+		padding: 0.5em 2em;
+		margin-bottom: 1.5em;
+		opacity: 0.6;
+		cursor: pointer;
+
+
+		&__active{
+			background-color: #fff;
+			opacity: 1;
+		}
+	}
+}

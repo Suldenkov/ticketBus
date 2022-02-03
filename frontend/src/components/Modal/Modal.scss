@@ -7,15 +7,20 @@
 		left: 0;
 		bottom: 0;
 		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: flex-start;
+		// align-items: center;
 	}
 
 	&_window{
+		display: inline-block;
 		font-size: 2rem;
-		width: 400px;
 		padding-bottom: 1em;
 		border-radius: 6px;
 		background-color: #fff;
 		margin: 5em auto;
+		overflow: hidden;
+		position: relative;
 	}
 
 	&_header{
@@ -24,6 +29,7 @@
 		justify-content: space-between;
 		align-items: flex-start;
 		padding: 0.1em 0.1em 0 0.3em;
+		position: relative;
 	}
 
 	&__title{
@@ -33,6 +39,9 @@
 	}
 
 	&__close{
+		position: absolute;
+		right: 0.4em;
+		top: 0.3em;
 		line-height: 0.6em;
 		cursor: pointer;
 	}
@@ -46,6 +55,7 @@
 
 	&__form{
 		width: 70%;
+		margin: 0 auto;
 
 		&__element{
 			font-size: 1rem;

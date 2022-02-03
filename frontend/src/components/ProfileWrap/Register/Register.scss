@@ -1,0 +1,14 @@
+.register{
+	width: 25ch;
+
+	&__form{
+		width: 65%;
+		margin: 0 auto;
+
+		&_label{
+			font-size: 1rem;
+			// border: 1px solid red;
+			margin-top: -0.3em
+		}
+	}
+}

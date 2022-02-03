@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import ProfileWrap from "../../components/ProfileWrap/ProfileWrap";
 import Main from "./Main/Main";
 // import style from './Home.module.scss'
 import Top from "./Top/Top";
@@ -14,7 +15,9 @@ const HomePage:React.FC = () => {
 			{
 				modalVisible === true
 				?
-				<Modal setVisible={setModalVisible}/>
+				<Modal setVisible={setModalVisible}>
+					<ProfileWrap setModalVisible={setModalVisible}/>
+				</Modal>
 				:
 				<></>
 			}
