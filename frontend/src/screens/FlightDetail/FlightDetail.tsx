@@ -33,13 +33,17 @@ const FlightDetail:React.FC<FlightDetailProps> = ({path, selectPlace, setSelectP
 					<span onClick={onClickGoBack}><span className="arrow">&#10140;</span>Go back</span>
 			</div>
 			<div className="flight_detail__content">
-				<div className="bus_container">
-					<div className="bus_container__title">
-						<h3>Выберите место на схеме автобуса</h3>
+				<div className="bus_container__wrap">
+					<div className="bus_container">
+						<div className="bus_container__title">
+							<h3>Выберите место на схеме автобуса</h3>
+						</div>
+						<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace} selectPlace={selectPlace}/>
 					</div>
-					<BusScheme countPlace={flight.countPlace} busyPlaces={flight.busyPlaces} setSelectPlace={setSelectPlace} selectPlace={selectPlace}/>
+					<div className="bus_container__info">
+						{children}
+					</div>
 				</div>
-				{children}
 				<FlightPrompt selectPlace={selectPlace} onClickHandler={onClickNextPage}/>
 			</div>
 		</div>

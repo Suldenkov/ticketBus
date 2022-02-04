@@ -1,5 +1,7 @@
 .flight_info{
-	width: 16.5em;
+	// width: 16.5em;
+	width: 100%;
+	height: 27em;
 	padding: 1em 0;
 	box-shadow: rgba(0, 0, 0 , 0.15) 0px 2px 4px;
 	border-radius: 6px;
@@ -37,3 +39,9 @@
 		}
 	}
 }
+
+// @media screen and (max-width: 1060px) {
+// 	.flight_info{
+// 		width: 90%;
+// 	}
+// }

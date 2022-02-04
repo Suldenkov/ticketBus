@@ -1,11 +1,27 @@
 .ticket_sign{
 
+	&__info{
+		width: 27%;
+		max-width: 16.5em;
+	}
+
 	&__content{
 		padding-top: 6em;
 		width: 60%;
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap-reverse;
 		margin: 0 auto;
+
+		form{
+			width: 65%;
+		}
+	}
+
+	&__support{
+		width: 33%;
+		font-size: 0.67rem;
+		color:rgb(107, 107, 107);
 	}
 
 	&__button{
@@ -15,5 +31,40 @@
 }
 
 .tickets{
-	width: 75%;
+	width: 90%;
+	max-width: 650px;
 }
+
+@media screen and (max-width: 1460px) {
+	.ticket_sign__content{
+		width: 80%;
+		form{
+			width: 72%;
+		}
+	}
+	.tickets{
+		width: 95%;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.ticket_sign{
+
+		&__info{
+			max-width: 100%;
+			width: 85%;
+			margin-bottom: 5em;
+		}
+
+		&__content{
+			width: 80%;
+			form{
+				width: 100%;
+			}
+		}
+	}
+	.tickets{
+		width: 95%;
+	}
+}
+

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import MyButton from "../../components/Button/Button";
 import Loader from "../../components/Loader/Loader";
 import MyInput from "../../components/MyInput/MyInput";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
@@ -34,8 +35,10 @@ const Profile: React.FC = () => {
 							<div className="profile_info__about">
 								<span>Используется для отправки электронного биллета, а также способ связи в случае отмены или изменения деталей поездки</span>
 							</div>
-							<MyInput placeholder='email' value={user.data.email} name='email' type='email' onChange={onChange} className='profile__input'/>
-							{/* <MyInput placeholder='Phone' value={user.data.phone} name='phone' onChange={onChange} type='phone' className='profile_input'/> */}
+							<div className="profile_info__input">
+								<MyInput placeholder='email' value={user.data.email} name='email' type='email' onChange={onChange} className='profile__input'/>
+								<MyInput placeholder='Phone' value={user.data.phone} name='phone' onChange={onChange} className='profile__input'/>
+							</div>
 						</div>
 					</div>
 					<div className="profile__card">
@@ -46,12 +49,14 @@ const Profile: React.FC = () => {
 							<div className="profile_info__about">
 								<span>Используются как ваши данные при покупке биллета</span>
 							</div>
-							{/* <MyInput placeholder='First Name' value={user.firstName} name='firstName' onChange={onChange} className='profile_input'/> */}
-							<MyInput placeholder='Last Name' value={user.data.last_name} name='last_name' onChange={onChange} className='profile__input'/>
+							<div className="profile_info__input">
+								<MyInput placeholder='First Name' value={user.data.first_name} name='firstName' onChange={onChange} className='profile_input'/>
+								<MyInput placeholder='Last Name' value={user.data.last_name} name='last_name' onChange={onChange} className='profile__input'/>
+							</div>
 						</div>
 					</div>
-					<button onClick={onClik}>Сохранить</button>
 				</div>
+				<MyButton onClick={onClik} name="Сохранить" className="profile_info__button"/>
 			</div>
 	)
 }

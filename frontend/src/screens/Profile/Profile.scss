@@ -7,6 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	font-size: 0.5rem;
 
 	&__title{
 		text-align: left;
@@ -14,7 +15,7 @@
 
 		h3{
 			font-weight: 500;
-			font-size: 1.8rem;
+			font-size: 1.5rem;
     		color: #424543;
 		}
 	}
@@ -26,13 +27,28 @@
 	}
 
 	&_info{
+		height: 50ch;
 		background: white;
 		box-shadow: rgba(0, 0, 0 , 0.15) 0px 2px 4px;
 		border-radius: 6px;
 		padding: 2em 3em 2em 3em;
+		// box-sizing: border-box;
+
+		&__input{
+			margin-top: 2em;
+			width: 90%;
+			height: 30ch;
+			display: inline-block;
+		}
+
+		&__button{
+			font-size: 1.2rem;
+			padding: 0.7em 1.7em;
+			margin-top: 3em;
+		}
 
 		&__about{
-			font-size: 1.1rem;
+			font-size: 1rem;
 			line-height: 1.4em;
 			width: 20em;
 		}
@@ -40,38 +56,11 @@
 
 	&__input{
 		font-size: 1.6rem;
-		width: 12em;
-		height: 1.55em;
-		margin-top: 1em;
+		width: 11em;
+		height: 1.45em;
+		margin-top: 0.5em;
 	}
 }
 
 
-@media (min-width: 1200px) {
-	.profile{
-		// padding-top: 5em;
-		font-size: 0.5rem;
-		
-		&__title{
-			h3{
-				font-size: 1.5rem;
-			}
-		}
 
-		&_info__about{
-			font-size: 1rem;
-		}
-
-		&__input{
-			font-size: 1.6rem;
-			width: 11em;
-			height: 1.45em;
-			margin-top: 1em;
-		}
-
-	}
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-	
-}

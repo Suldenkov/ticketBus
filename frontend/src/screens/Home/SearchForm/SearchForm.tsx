@@ -1,6 +1,6 @@
 import React from "react";
 import FlightsSearch from "../../../components/FlightsSearch/FlightsSearch";
-import style from './SearchForm.module.scss'
+import style from "./SearchForm.module.scss";
 
 const SearchForm:React.FC = () => {
 	return (

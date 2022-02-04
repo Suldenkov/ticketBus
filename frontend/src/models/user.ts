@@ -33,7 +33,7 @@ interface ReasetAuth{
 }
 
 export interface UserResponse{
-	username: string;
+	first_name: string;
 	last_name: string;
 	passenger: any;
 	email: string;

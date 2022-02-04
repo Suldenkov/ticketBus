@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import MyButton from "../../components/Button/Button";
@@ -8,6 +8,7 @@ import TicketService from "../../services/ticket.service";
 import { setSnackbar } from "../../store/reducers/UIReduser";
 import {useDispatch} from 'react-redux';
 import './TicketSign.scss';
+import MyInput from "../../components/MyInput/MyInput";
 
 interface TicketSignProps{
 	seats: number[]
@@ -25,13 +26,17 @@ const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
     name: "tickets",
   });
 
+	const [email, setEmail] = useState('')
+
 	const onSubmit: SubmitHandler<any> = (data) => {
 		const req = {...data, flight: query.get('flight'), seats: seats}
     TicketService.BuyTickets(req)
 		.then((data) => {
-			const param = {snackbarOpen: true, snackbarMessage: 'Покупка биллета: Успешно', snackbarType: 'success'}
-    	dispatch(setSnackbar(param))
-			history.push('/')
+			if (data.status === 200){
+				const param = {snackbarOpen: true, snackbarMessage: 'Покупка биллета: Успешно', snackbarType: 'success'}
+				dispatch(setSnackbar(param))
+				history.push('/')
+			}
 		})
 		.catch((error) => {
 			const param = {snackbarOpen: true, snackbarMessage: error, snackbarType: 'error'}
@@ -48,11 +53,19 @@ const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 							<Ticket key={index} id={index} register={register} errors={errors}/>
 							)}
 					</div>
+					<div className="ticket_sign__support">
+						<label >
+							Адрес электронной почты.<br/> На него будут отправлены биллеты
+							<MyInput value={email} onChange={(e:any) => setEmail(e.target.value)}  className="modal__form__element"/>
+						</label>
+					</div>
 					<div>
 						<MyButton name="Купить" onClick={null} className="ticket_sign__button"/>
 					</div>
 				</form>
-				{children}
+				<div className="ticket_sign__info">
+					{children}
+				</div>
 			</div>
 		</div>
 	)
