@@ -178,9 +178,18 @@ SIMPLE_JWT = {
 	'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
 }
 
+DJOSER = {
+	'SERIALIZERS': {
+		'current_user': 'accounts.serializers.UserProfileSerializer',
+		'user_create': 'accounts.serializers.UserRegistrationSerializer',
+	}
+}
+
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER =
+EMAIL_HOST_PASSWORD =
+# DEFAULT_FROM_EMAIL = 'Your name'
+# DEFAULT_TO_EMAIL = 'Your email'

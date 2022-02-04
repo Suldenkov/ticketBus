@@ -109,9 +109,10 @@ class TicketViewSet(viewsets.ModelViewSet):
 		try:
 			with transaction.atomic():
 				for i in range(len(req['tickets'])):
-					queryset = Ticket.objects.filter(seat_no=int(req['seats'][i]))
+					queryset = Ticket.objects.filter(Q(pk=int(req['flight'])) & Q(seat_no=int(req['seats'][i])))
 					if len(queryset) > 0:
 						raise IntegrityError
+
 					ticket = req['tickets'][i]
 					flight = int(req['flight'])
 					birthday = datetime.strptime(ticket['birthday'], "%d.%m.%Y").strftime('%Y-%m-%d')
@@ -138,7 +139,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 			ticket.qr_code.save(fname, File(buffer), save=False)
 			canvas.close()
 			ticket.save()
-		send_mail(tickets)
+		send_mail(tickets, req['email'])
 		return Response({'code': 200})
 
 
@@ -177,9 +178,9 @@ def utc_to_local(utc_dt):
 	return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
 
 
-def send_mail(tickets):
+def send_mail(tickets, email):
 	subject, from_email, to = 'Входные билеты на автобус. Не забудте распечатать его или иметь возможность показать с мобильного устройства при посадке.', 'fastticketbus@gmail.com', 'suldenkovv@mail.ru'
-	msg = EmailMultiAlternatives(subject, None, from_email, [to])
+	msg = EmailMultiAlternatives(subject, None, from_email, [email])
 	msg.attach(logo_data('logo.png', 'logo'))
 	html_content = '''<!DOCTYPE html>
 <html>

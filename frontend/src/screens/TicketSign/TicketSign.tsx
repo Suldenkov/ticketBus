@@ -29,9 +29,10 @@ const TicketSign: React.FC<TicketSignProps> = ({children, seats}) => {
 	const [email, setEmail] = useState('')
 
 	const onSubmit: SubmitHandler<any> = (data) => {
-		const req = {...data, flight: query.get('flight'), seats: seats}
+		const req = {...data, flight: query.get('flight'), seats: seats, email: email}
     TicketService.BuyTickets(req)
 		.then((data) => {
+			console.log(data)
 			if (data.status === 200){
 				const param = {snackbarOpen: true, snackbarMessage: 'Покупка биллета: Успешно', snackbarType: 'success'}
 				dispatch(setSnackbar(param))
