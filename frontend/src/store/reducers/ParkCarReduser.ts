@@ -1,4 +1,4 @@
-import { ParkCarState, ParkCarAction, ParkCarActionTypes } from "./../../models/ParkCar"
+import { ParkCarState, ParkCarAction, ParkCarActionTypes } from "./../../models/parkCar"
 
 const initialState:ParkCarState = {
 	parks: [],

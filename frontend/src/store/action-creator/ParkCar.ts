@@ -1,6 +1,6 @@
-import { ParkCarActionTypes } from './../../models/ParkCar';
+import { ParkCarActionTypes } from '../../models/parkCar';
 import { Dispatch } from "redux"
-import { ParkCarAction } from "../../models/ParkCar"
+import { ParkCarAction } from "../../models/parkCar"
 import axios from 'axios';
 
 export const fetchParkCar = (param:string) => {

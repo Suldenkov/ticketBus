@@ -1,36 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import MyButton from "../Button/Button";
 import Prompt from "../Prompt/Prompt";
 import { formatDate } from "../../utils/formatDate";
 import './FlightsSearch.scss';
 import {useDispatch} from 'react-redux';
-import { fetchParkCar } from "../../store/action-creator/ParkCar";
+import { fetchParkCar } from "../../store/action-creator/parkCar";
 import SearchInput from "../SearchInput/SearchInput";
 import Calendar from "../Calendar/Calendar";
+import {Formik} from 'formik'
+import * as Yup from 'yup';
 
 // import Select from 'react-select';
 
+interface SearchFormValues {
+	departure: string; 
+	arrival: string;
+	calendar: null | Date;
+}
+
+const SearchFormShema = Yup.object().shape({
+	departure: Yup.string()
+		.required('Обязательно для заполнения'),
+		arrival: Yup.string()
+		.required('Обязательно для заполнения'),
+		calendar: Yup.mixed().required('Обязательно для заполнения'),
+});
+
 const FlightsSearch: React.FC = (props) => {
 	
-	const [startDate, setStartDate] = useState<Date | null>(null);
-	const [searchParam, setSearchParam] = useState({arrival: '', departure: ''})
+	const initialValues: SearchFormValues = { departure: '', 	arrival: '', calendar: null};
 	let history = useHistory();
 	const dispatch = useDispatch()
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(fetchParkCar(e.target.value))
-		setSearchParam({...searchParam, [e.target.name]: e.target.value})
-	}
-
-	const onClickItem = (value: string, name:string) => {
-		dispatch(fetchParkCar(value))
-		setSearchParam({...searchParam, [name]: value})
-	}
-
-	const send = (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault()
-		history.push(`/flights?arrival=${searchParam.arrival}&departure=${searchParam.departure}&date=${formatDate(startDate)}`);
+	const send = (val:any) => {
+		history.push(`/flights?arrival=${val.arrival}&departure=${val.departure}&date=${formatDate(val.calendar)}`);
 	}
 
 	useEffect(() => {
@@ -39,30 +43,47 @@ const FlightsSearch: React.FC = (props) => {
 
 
 	return (
-		<form className="flights_search">
-			<SearchInput
-				value={searchParam.departure}
-				placeholder="Откуда"
-				name='departure'
-				onChange={onChange}
-				fetch={fetchParkCar}
-				setValue={onClickItem}
+			<Formik
+				initialValues={initialValues}
+				validationSchema={SearchFormShema}
+				onSubmit={values => send(values)}
 			>
-				<Prompt/>
-			</SearchInput>
-			<SearchInput 
-				value={searchParam.arrival}
-				placeholder="Куда"
-				name='arrival'
-				onChange={onChange}
-				fetch={fetchParkCar}
-				setValue={onClickItem}
-			>		
-				<Prompt/>
-			</SearchInput>
-			<Calendar setStartDate={setStartDate} startDate={startDate}/>
-			<MyButton onClick={send} name='Найти билет' className="flights_search__button"/>
-		</form>
+				{({errors,touched, handleSubmit}: any) => (
+					<div className="flights_search">
+						<div className="">
+							<SearchInput
+							placeholder="Откуда"
+							name='departure'
+							fetch={fetchParkCar}
+							>
+								<Prompt/>
+							</SearchInput>
+							{errors.departure && touched.departure ? (
+							<div className="flights_search__error">{errors.departure}</div>
+						) : null}
+						</div>
+						<div className="">
+							<SearchInput 
+							placeholder="Куда"
+							name='arrival'
+							fetch={fetchParkCar}
+							>		
+							<Prompt/>
+							</SearchInput>
+							{errors.arrival && touched.arrival ? (
+							<div className="flights_search__error">{errors.arrival}</div>
+						) : null}
+						</div>
+						<div className="">
+							<Calendar name="calendar"/>
+							{errors.calendar && touched.calendar ? (
+							<div className="flights_search__error">{errors.calendar}</div>
+						) : null}
+						</div>
+						<MyButton onClick={handleSubmit} name='Найти билет' className="flights_search__button"/>
+					</div>
+				)}
+			</Formik>
 	)
 } 
 

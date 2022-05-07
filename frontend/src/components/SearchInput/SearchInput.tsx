@@ -2,23 +2,25 @@ import React, { useState } from "react";
 import MyInput from "../MyInput/MyInput";
 import {useDispatch} from 'react-redux';
 import './SearchInput.scss';
+import { useField, useFormikContext } from "formik";
+import { fetchParkCar } from "../../store/action-creator/parkCar";
 
 interface SearchInputProps{
 	fetch?: any;
-	value: string;
 	placeholder: string;
 	name: string;
-	onChange:any;
-	setValue: any;
 }
 
-const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...props}) => {
+const SearchInput:React.FC<SearchInputProps> = ({fetch, children, ...props}) => {
 	const dispatch = useDispatch()
 	const [focus, setFocus] = useState<boolean>(false)
 
+	const { values, setFieldValue }:any = useFormikContext();
+  const [field] = useField(props);
+
 	const focusControl = () => {
 		if (focus === false && fetch){
-			dispatch(fetch(props.value))
+			dispatch(fetch(values[field.name]))
 			setFocus((prevState) => !prevState)
 		}
 		else
@@ -27,13 +29,18 @@ const SearchInput:React.FC<SearchInputProps> = ({fetch, children, setValue, ...p
 
 	const onClickItem = (e: any) => {
 		if (e.target.dataset.prompt){
-			setValue(e.target.textContent, props.name)
+			setFieldValue(field.name, e.target.textContent)
 		}
+	}
+
+	const change = (e: any) => {
+		dispatch(fetchParkCar(e.target.value))
+		setFieldValue(field.name, e.target.value)
 	}
 
 	return (
 		<div className="search_input_container" onClick={onClickItem}>
-			<MyInput {...props} focusControl={focusControl} className="search_input"/>
+			<MyInput value={values[field.name]} onChange={change} {...props} focusControl={focusControl} className="search_input"/>
 			{focus ?
 			children
 		: <></>}

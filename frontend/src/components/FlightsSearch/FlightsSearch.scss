@@ -1,6 +1,10 @@
 .flights_search{
 	display: flex;
 
+	&__error{
+		color: rgb(240, 39, 79);
+	}
+	
 	&__button{
 		font-size: 0.9rem;
 		margin-left: 1em;
