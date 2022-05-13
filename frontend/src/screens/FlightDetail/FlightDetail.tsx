@@ -24,7 +24,7 @@ const FlightDetail:React.FC<FlightDetailProps> = ({path, selectPlace, setSelectP
 	const onClickNextPage = () => {
 		const id = query.get('flight')
 		if (id)
-			history.push(`${path}?flight=${id}&amount=${selectPlace.length}`)
+			history.push(`${path}?flight=${id}&amount=${selectPlace.length}&place=${selectPlace.join('_')}`)
 	}
 
 	return (

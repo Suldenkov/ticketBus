@@ -1,13 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router";
 import Navbar from "../../components/Navbar/Navbar";
+import { useGetPlace } from "../../hooks/useGetPlace";
 import { useQuery } from "../../hooks/useQuery";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { fetchFlightDetail } from "../../store/action-creator/flightDetail";
 import FlightDetail from "../FlightDetail/FlightDetail";
 import FlightInfo from "../FlightDetail/FlightInfo/FlightInfo";
 import TicketSign from "../TicketSign/TicketSign";
+import Navigation from "./Navigation/Navigation";
 import "./Purchase.scss";
 
 const Purchase:React.FC = () => {
@@ -16,7 +18,7 @@ const Purchase:React.FC = () => {
 	const {flight} = useTypeSelector(state => state.flight)
 	let { path } = useRouteMatch();
 	const dispatch = useDispatch()
-	const [selectPlace, setSelectPlace] = useState<number[]>([])
+	const [selectPlace, setSelectPlace] = useGetPlace(query)
 
 	
 	useEffect(() => {
@@ -38,6 +40,7 @@ const Purchase:React.FC = () => {
 	return (
 		<div className="purchase">
 			<Navbar routs={[]}/>
+			<Navigation/>
 			<Switch>
 				<Route exact path={`${path}/flight`}>
 					<FlightDetail path={`${path}/ticket`} selectPlace={selectPlace} setSelectPlace={setSelectPlace} children={childrenElem}/>
